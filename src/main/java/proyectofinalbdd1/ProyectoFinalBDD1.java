@@ -9,8 +9,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -23,7 +21,7 @@ public class ProyectoFinalBDD1 {
     // Crear base de datos `proyecto_final` si no existe
     try {
       // Ruta del modelo SQL
-      Path initSQLScript = Paths.get(System.getProperty("user.dir"), "src/main/resources/modelo.sql");
+      Path initSQLScript = Paths.get(System.getProperty("user.dir"), "src/main/resources/modelo-5.7.sql");
 
       // Conectarse a la base de datos como usuario root
       Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/", "root", "");
@@ -48,17 +46,20 @@ public class ProyectoFinalBDD1 {
           aux = "";
         }
       }
-    } catch (SQLException | IOException ex) {
-      Logger.getLogger(ProyectoFinalBDD1.class
-          .getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+      System.err.println("Couldn't connect to the database, do you have the correct privileges?");
+      System.exit(0);
+    } catch (IOException ex) {
+      System.err.println("Init SQL Model not found.");
+      System.exit(0);
     }
   }
 
   public static void main(String[] args) {
+    inicializarBase();
     // Crear frame principal
     JFrame ventanaPrincipal = new ventanas.principal();
     // Mostrar frame principal
     ventanaPrincipal.setVisible(true);
-    inicializarBase();
   }
 }
