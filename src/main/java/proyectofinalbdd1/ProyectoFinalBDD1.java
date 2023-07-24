@@ -37,7 +37,7 @@ public class ProyectoFinalBDD1 {
       String aux = "";
 
       for (String query : modelo) {
-        if (query.contains("-") || query.isBlank()) {
+        if (query.contains("-") || query.trim().isEmpty()) {
           continue;
         }
 
