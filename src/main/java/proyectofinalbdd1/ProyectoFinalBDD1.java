@@ -19,15 +19,18 @@ public class ProyectoFinalBDD1 {
 
   private static void inicializarBase() {
     // Crear base de datos `proyecto_final` si no existe
+    Connection connection = null;
+    Statement stmt = null;
+
     try {
       // Ruta del modelo SQL
       Path initSQLScript = Paths.get(System.getProperty("user.dir"), "src/main/resources/modelo-5.7.sql");
 
       // Conectarse a la base de datos como usuario root
-      Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/", "root", "");
+      connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/", "root", "");
 
       // Crear comando
-      Statement stmt = connection.createStatement();
+      stmt = connection.createStatement();
 
       // Leer `modelo.sql` a una lista de Strings (líneas)
       List<String> modelo = Files.readAllLines(Paths.get(initSQLScript.toString()));
@@ -52,7 +55,14 @@ public class ProyectoFinalBDD1 {
     } catch (IOException ex) {
       System.err.println("Init SQL Model not found.");
       System.exit(0);
+    } finally {
+      try {
+        stmt.close();
+        connection.close();
+      } catch (SQLException e) {
+        /* Ignored */ }
     }
+
   }
 
   public static void main(String[] args) {
