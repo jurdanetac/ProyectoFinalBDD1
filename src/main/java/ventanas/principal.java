@@ -1,5 +1,12 @@
 package ventanas;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Juan Urdaneta
@@ -9,8 +16,21 @@ public class principal extends javax.swing.JFrame {
   /**
    * Creates new form principal
    */
+  public static Font roboto = null;
+
   public principal() {
+    InputStream is = this.getClass().getClassLoader().getResourceAsStream("fonts/Roboto/Roboto-Regular.ttf");
+
+    try {
+      roboto = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(24.0F);
+    } catch (FontFormatException | IOException ex) {
+      Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+    }
+
     initComponents();
+    // Center frame
+    this.setLocationRelativeTo(null);
+    // this.setVisible(true);
   }
 
   /**
@@ -22,31 +42,93 @@ public class principal extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
-    jLabel1 = new javax.swing.JLabel();
+    bg = new javax.swing.JPanel();
+    pinkBg = new javax.swing.JPanel();
+    title = new javax.swing.JLabel();
+    explorar = new javax.swing.JButton();
+    modificar = new javax.swing.JButton();
+    whiteBg = new javax.swing.JPanel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setAutoRequestFocus(false);
+    setResizable(false);
 
-    jLabel1.setText("Hola Mundo!");
+    bg.setMinimumSize(new java.awt.Dimension(400, 300));
+    bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+    pinkBg.setBackground(new java.awt.Color(98, 0, 238));
+
+    javax.swing.GroupLayout pinkBgLayout = new javax.swing.GroupLayout(pinkBg);
+    pinkBg.setLayout(pinkBgLayout);
+    pinkBgLayout.setHorizontalGroup(
+      pinkBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 130, Short.MAX_VALUE)
+    );
+    pinkBgLayout.setVerticalGroup(
+      pinkBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 300, Short.MAX_VALUE)
+    );
+
+    bg.add(pinkBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 300));
+
+    title.setFont(roboto);
+    title.setForeground(new java.awt.Color(0, 0, 0));
+    title.setText("Hola Mundo!");
+    bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
+
+    explorar.setText("Explorar Territorios");
+    explorar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        explorarActionPerformed(evt);
+      }
+    });
+    bg.add(explorar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 150, 30));
+
+    modificar.setText("Modificar Datos");
+    modificar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        modificarActionPerformed(evt);
+      }
+    });
+    bg.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 150, 30));
+
+    whiteBg.setBackground(new java.awt.Color(255, 255, 255));
+    whiteBg.setForeground(new java.awt.Color(255, 255, 255));
+
+    javax.swing.GroupLayout whiteBgLayout = new javax.swing.GroupLayout(whiteBg);
+    whiteBg.setLayout(whiteBgLayout);
+    whiteBgLayout.setHorizontalGroup(
+      whiteBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 270, Short.MAX_VALUE)
+    );
+    whiteBgLayout.setVerticalGroup(
+      whiteBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 300, Short.MAX_VALUE)
+    );
+
+    bg.add(whiteBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 270, 300));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(layout.createSequentialGroup()
-        .addGap(28, 28, 28)
-        .addComponent(jLabel1)
-        .addContainerGap(293, Short.MAX_VALUE))
+      .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(layout.createSequentialGroup()
-        .addGap(21, 21, 21)
-        .addComponent(jLabel1)
-        .addContainerGap(260, Short.MAX_VALUE))
+      .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
+
+  private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_modificarActionPerformed
+
+  private void explorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_explorarActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_explorarActionPerformed
 
   /**
    * @param args the command line arguments
@@ -84,6 +166,11 @@ public class principal extends javax.swing.JFrame {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JLabel jLabel1;
+  private javax.swing.JPanel bg;
+  private javax.swing.JButton explorar;
+  private javax.swing.JButton modificar;
+  private javax.swing.JPanel pinkBg;
+  private javax.swing.JLabel title;
+  private javax.swing.JPanel whiteBg;
   // End of variables declaration//GEN-END:variables
 }
