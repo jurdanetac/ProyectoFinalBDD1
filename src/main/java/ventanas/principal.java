@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /**
  *
@@ -123,7 +124,9 @@ public class principal extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-    // TODO add your handling code here:
+    JFrame entidades = new ventanas.entidades();
+    this.setVisible(false);
+    entidades.setVisible(true);
   }//GEN-LAST:event_modificarActionPerformed
 
   private void explorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_explorarActionPerformed
