@@ -1,32 +1,21 @@
 package ventanas;
 
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
  *
  * @author Juan Urdaneta
  */
-public class entidades extends javax.swing.JFrame {
+public class menuEntidades extends javax.swing.JFrame {
 
   /**
-   * Creates new form entidades
+   * Creates new form menuEntidades
    */
-  public static Font roboto = null;
+  public static Font font = null;
 
-  public entidades() {
-    InputStream is = this.getClass().getClassLoader().getResourceAsStream("fonts/Roboto/Roboto-Regular.ttf");
-
-    try {
-      roboto = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(24.0F);
-    } catch (FontFormatException | IOException ex) {
-      Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-    }
+  public menuEntidades() {
+    font = utils.cargarFuente.robotoRegular();
 
     initComponents();
     // Center frame
@@ -50,14 +39,20 @@ public class entidades extends javax.swing.JFrame {
     actividadEconomica = new javax.swing.JButton();
     relieve = new javax.swing.JButton();
     simboloPatrio = new javax.swing.JButton();
+    volver = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-    title.setFont(roboto);
+    title.setFont(font);
     title.setText("Entidades");
 
     territorio.setText("Territorio");
+    territorio.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        territorioActionPerformed(evt);
+      }
+    });
 
     cuerpoDeAgua.setText("Cuerpo de Agua");
     cuerpoDeAgua.addActionListener(new java.awt.event.ActionListener() {
@@ -74,39 +69,65 @@ public class entidades extends javax.swing.JFrame {
     });
 
     actividadEconomica.setText("Actividad Económica");
+    actividadEconomica.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        actividadEconomicaActionPerformed(evt);
+      }
+    });
 
     relieve.setText("Relieve");
+    relieve.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        relieveActionPerformed(evt);
+      }
+    });
 
     simboloPatrio.setText("Símbolo Patrio");
+    simboloPatrio.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        simboloPatrioActionPerformed(evt);
+      }
+    });
+
+    volver.setText("Volver");
+    volver.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        volverActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        .addGap(0, 0, Short.MAX_VALUE)
+        .addComponent(volver, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(119, 119, 119))
       .addGroup(jPanel1Layout.createSequentialGroup()
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGap(145, 145, 145)
-            .addComponent(title))
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGap(26, 26, 26)
+            .addGap(27, 27, 27)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
               .addComponent(territorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(cuerpoDeAgua, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-              .addComponent(serVivo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+              .addComponent(cuerpoDeAgua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(serVivo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(37, 37, 37)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(relieve, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(actividadEconomica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(simboloPatrio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        .addContainerGap(31, Short.MAX_VALUE))
+              .addComponent(simboloPatrio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+          .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(148, 148, 148)
+            .addComponent(title)))
+        .addContainerGap(30, Short.MAX_VALUE))
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
-        .addGap(37, 37, 37)
+        .addGap(23, 23, 23)
         .addComponent(title)
-        .addGap(30, 30, 30)
+        .addGap(18, 18, 18)
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(territorio)
           .addComponent(actividadEconomica))
@@ -118,7 +139,9 @@ public class entidades extends javax.swing.JFrame {
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(serVivo)
           .addComponent(simboloPatrio))
-        .addContainerGap(53, Short.MAX_VALUE))
+        .addGap(18, 18, 18)
+        .addComponent(volver)
+        .addContainerGap(36, Short.MAX_VALUE))
     );
 
     getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
@@ -127,15 +150,46 @@ public class entidades extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void serVivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serVivoActionPerformed
-    // TODO add your handling code here:
+    JFrame seresVivos = new ventanas.entidades.serVivo();
+    this.setVisible(false);
+    seresVivos.setVisible(true);
   }//GEN-LAST:event_serVivoActionPerformed
 
   private void cuerpoDeAguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuerpoDeAguaActionPerformed
-    // TODO add your handling code here:
-    JFrame cuerposDeAgua = new ventanas.cuerpoDeAgua();
+    JFrame cuerposDeAgua = new ventanas.entidades.cuerpoDeAgua();
     this.setVisible(false);
     cuerposDeAgua.setVisible(true);
   }//GEN-LAST:event_cuerpoDeAguaActionPerformed
+
+  private void territorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_territorioActionPerformed
+    JFrame territorio = new ventanas.entidades.territorio();
+    this.setVisible(false);
+    territorio.setVisible(true);
+  }//GEN-LAST:event_territorioActionPerformed
+
+  private void actividadEconomicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actividadEconomicaActionPerformed
+    JFrame actividadesEconomicas = new ventanas.entidades.actividadEconomica();
+    this.setVisible(false);
+    actividadesEconomicas.setVisible(true);
+  }//GEN-LAST:event_actividadEconomicaActionPerformed
+
+  private void relieveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relieveActionPerformed
+    JFrame relieves = new ventanas.entidades.relieve();
+    this.setVisible(false);
+    relieves.setVisible(true);
+  }//GEN-LAST:event_relieveActionPerformed
+
+  private void simboloPatrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simboloPatrioActionPerformed
+    JFrame simbolosPatrios = new ventanas.entidades.simboloPatrio();
+    this.setVisible(false);
+    simbolosPatrios.setVisible(true);
+  }//GEN-LAST:event_simboloPatrioActionPerformed
+
+  private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
+    JFrame principal = new ventanas.principal();
+    this.setVisible(false);
+    principal.setVisible(true);
+  }//GEN-LAST:event_volverActionPerformed
 
   /**
    * @param args the command line arguments
@@ -154,20 +208,21 @@ public class entidades extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(entidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(menuEntidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(entidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(menuEntidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(entidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(menuEntidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(entidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(menuEntidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
     //</editor-fold>
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new entidades().setVisible(true);
+        new menuEntidades().setVisible(true);
       }
     });
   }
@@ -181,5 +236,6 @@ public class entidades extends javax.swing.JFrame {
   private javax.swing.JButton simboloPatrio;
   private javax.swing.JButton territorio;
   private javax.swing.JLabel title;
+  private javax.swing.JButton volver;
   // End of variables declaration//GEN-END:variables
 }

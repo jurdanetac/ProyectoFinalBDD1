@@ -1,11 +1,6 @@
 package ventanas;
 
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -17,17 +12,10 @@ public class principal extends javax.swing.JFrame {
   /**
    * Creates new form principal
    */
-  public static Font roboto = null;
+  public static Font font = null;
 
   public principal() {
-    InputStream is = this.getClass().getClassLoader().getResourceAsStream("fonts/Roboto/Roboto-Regular.ttf");
-
-    try {
-      roboto = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(24.0F);
-    } catch (FontFormatException | IOException ex) {
-      Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-    }
-
+    font = utils.cargarFuente.robotoRegular();
     initComponents();
     // Center frame
     this.setLocationRelativeTo(null);
@@ -72,7 +60,7 @@ public class principal extends javax.swing.JFrame {
 
     bg.add(pinkBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 300));
 
-    title.setFont(roboto);
+    title.setFont(font);
     title.setForeground(new java.awt.Color(0, 0, 0));
     title.setText("Hola Mundo!");
     bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
@@ -124,9 +112,9 @@ public class principal extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-    JFrame entidades = new ventanas.entidades();
+    JFrame menuEntidades = new ventanas.menuEntidades();
     this.setVisible(false);
-    entidades.setVisible(true);
+    menuEntidades.setVisible(true);
   }//GEN-LAST:event_modificarActionPerformed
 
   private void explorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_explorarActionPerformed

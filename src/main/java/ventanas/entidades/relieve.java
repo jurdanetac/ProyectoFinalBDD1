@@ -1,47 +1,26 @@
-package ventanas;
+package ventanas.entidades;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
-import static utils.consultarBase.consultarBase;
+import java.awt.Font;
+import javax.swing.JFrame;
+import utils.populateLista;
 
 /**
  *
  * @author Juan Urdaneta
  */
-public class cuerpoDeAgua extends javax.swing.JFrame {
+public class relieve extends javax.swing.JFrame {
 
   /**
-   * Creates new form cuerpoDeAgua
+   * Creates new form relieve
    */
-  private void populateCuerpoDeAgua() {
-    ResultSet rs = consultarBase("SELECT * FROM cuerpo_de_agua;");
+  public static Font font = null;
 
-    DefaultListModel modeloLista = new DefaultListModel();
-
-    try {
-      while (rs.next()) {
-        String cuerpoDeAgua = rs.getString("nombre");
-        modeloLista.addElement(cuerpoDeAgua);
-      }
-      lista.setModel(modeloLista);
-    } catch (SQLException ex) {
-      Logger.getLogger(cuerpoDeAgua.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
-      try {
-        rs.close();
-      } catch (SQLException e) {
-        /* Ignored */ }
-    }
-  }
-
-  public cuerpoDeAgua() {
+  public relieve() {
+    font = utils.cargarFuente.robotoRegular();
     initComponents();
     // Center frame
     this.setLocationRelativeTo(null);
-    populateCuerpoDeAgua();
+    populateLista.populate("relieve", lista, "tipo");
   }
 
   /**
@@ -58,10 +37,17 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
     anadir = new javax.swing.JButton();
     scroll = new javax.swing.JScrollPane();
     lista = new javax.swing.JList<>();
+    volver = new javax.swing.JButton();
+    editar = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    title.setText("Cuerpo de Agua");
+    bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+    title.setFont(font);
+    title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    title.setText("Relieve");
+    bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 310, -1));
 
     anadir.setText("Añadir");
     anadir.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +55,7 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
         anadirActionPerformed(evt);
       }
     });
+    bg.add(anadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 90, -1));
 
     lista.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -77,42 +64,33 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
     });
     scroll.setViewportView(lista);
 
-    javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
-    bg.setLayout(bgLayout);
-    bgLayout.setHorizontalGroup(
-      bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(anadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addGap(158, 158, 158))
-      .addGroup(bgLayout.createSequentialGroup()
-        .addGap(45, 45, 45)
-        .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(41, Short.MAX_VALUE))
-    );
-    bgLayout.setVerticalGroup(
-      bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(bgLayout.createSequentialGroup()
-        .addGap(30, 30, 30)
-        .addComponent(title)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-        .addComponent(anadir)
-        .addGap(27, 27, 27))
-    );
+    bg.add(scroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 310, 180));
+
+    volver.setText("Volver");
+    volver.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        volverActionPerformed(evt);
+      }
+    });
+    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 90, -1));
+
+    editar.setText("Editar");
+    editar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        editarActionPerformed(evt);
+      }
+    });
+    bg.add(editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 90, -1));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
 
     pack();
@@ -121,6 +99,16 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
   private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_anadirActionPerformed
+
+  private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
+    JFrame menuEntidades = new ventanas.menuEntidades();
+    this.setVisible(false);
+    menuEntidades.setVisible(true);
+  }//GEN-LAST:event_volverActionPerformed
+
+  private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_editarActionPerformed
 
   /**
    * @param args the command line arguments
@@ -139,20 +127,35 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(cuerpoDeAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(relieve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(cuerpoDeAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(relieve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(cuerpoDeAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(relieve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(cuerpoDeAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(relieve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
     //</editor-fold>
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new cuerpoDeAgua().setVisible(true);
+        new relieve().setVisible(true);
       }
     });
   }
@@ -160,8 +163,10 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton anadir;
   private javax.swing.JPanel bg;
+  private javax.swing.JButton editar;
   private javax.swing.JList<String> lista;
   private javax.swing.JScrollPane scroll;
   private javax.swing.JLabel title;
+  private javax.swing.JButton volver;
   // End of variables declaration//GEN-END:variables
 }
