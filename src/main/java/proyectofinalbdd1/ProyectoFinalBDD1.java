@@ -24,7 +24,7 @@ public class ProyectoFinalBDD1 {
 
     try {
       // Ruta del modelo SQL
-      Path initSQLScript = Paths.get(System.getProperty("user.dir"), "src/main/resources/modelo-5.7.sql");
+      Path initSQLScript = Paths.get(System.getProperty("user.dir"), "src/main/resources/sql/modelo-5.7.sql");
 
       // Conectarse a la base de datos como usuario root
       connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/", "root", "");
