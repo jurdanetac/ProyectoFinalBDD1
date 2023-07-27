@@ -23,8 +23,18 @@ public class populateLista {
 
     try {
       while (rs.next()) {
-        String item = rs.getString(identificador);
-        modeloLista.addElement(item);
+        String id = rs.getString("id");
+        String nombre = rs.getString("nombre");
+        String tipo = rs.getString("tipo");
+
+        // Muestra territorio padre, si el territorio lo tiene
+        ResultSet parent = consultarBase(String.format("SELECT t1.nombre FROM territorio_subdivide_en_territorio JOIN territorio t1 ON t1.id = territorio_subdivide_en_territorio.territorio_id JOIN territorio t2 ON t2.id = territorio_subdivide_en_territorio.territorio_id1 WHERE t2.id = %s;", id));
+
+        if (parent.next()) {
+          modeloLista.addElement(String.format("%s - %s (%s) - %s", id, nombre, tipo, parent.getString("nombre")));
+        } else {
+          modeloLista.addElement(String.format("%s - %s (%s)", id, nombre, tipo));
+        }
       }
       lista.setModel(modeloLista);
     } catch (SQLException ex) {

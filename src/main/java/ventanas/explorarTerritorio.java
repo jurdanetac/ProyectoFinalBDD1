@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import utils.actualizarBase;
@@ -31,32 +30,11 @@ public class explorarTerritorio extends javax.swing.JFrame {
 
     ResultSet rs = consultarBase(String.format("SELECT * FROM %s;", "territorio"));
 
-    DefaultListModel modeloLista = new DefaultListModel();
-
     try {
-      while (rs.next()) {
-        String id = rs.getString("id");
-        String nombre = rs.getString("nombre");
-        String tipo = rs.getString("tipo");
-        String ubicacion = rs.getString("ubicacion");
-
-        // Muestra territorio padre, si el territorio lo tiene
-        ResultSet parent = consultarBase(String.format("SELECT t1.nombre FROM territorio_subdivide_en_territorio JOIN territorio t1 ON t1.id = territorio_subdivide_en_territorio.territorio_id JOIN territorio t2 ON t2.id = territorio_subdivide_en_territorio.territorio_id1 WHERE t2.id = %s;", id));
-
-        if (parent.next()) {
-          modeloLista.addElement(String.format("%s - %s (%s) - %s", id, nombre, tipo, parent.getString("nombre")));
-        } else {
-          modeloLista.addElement(String.format("%s - %s (%s)", id, nombre, tipo));
-        }
-      }
-      lista.setModel(modeloLista);
+      utils.populateLista.populate("territorio", lista, "nombre");
+      rs.close();
     } catch (SQLException ex) {
-      Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-    } finally {
-      try {
-        rs.close();
-      } catch (SQLException e) {
-        /* Ignored */ }
+      Logger.getLogger(explorarTerritorio.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
 
