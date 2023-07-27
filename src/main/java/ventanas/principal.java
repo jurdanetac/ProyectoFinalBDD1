@@ -118,7 +118,9 @@ public class principal extends javax.swing.JFrame {
   }//GEN-LAST:event_modificarActionPerformed
 
   private void explorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_explorarActionPerformed
-    // TODO add your handling code here:
+    JFrame territorio = new ventanas.explorarTerritorio();
+    this.setVisible(false);
+    territorio.setVisible(true);
   }//GEN-LAST:event_explorarActionPerformed
 
   /**
