@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import utils.actualizarBase;
 import static utils.consultarBase.consultarBase;
 
 /**
@@ -75,6 +76,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
     lista = new javax.swing.JList<>();
     volver = new javax.swing.JButton();
     colinda = new javax.swing.JButton();
+    eliminar = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,7 +93,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
         subterritoriosActionPerformed(evt);
       }
     });
-    bg.add(subterritorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 90, -1));
+    bg.add(subterritorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 100, -1));
 
     lista.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -108,7 +110,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
         volverActionPerformed(evt);
       }
     });
-    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 90, -1));
+    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 90, -1));
 
     colinda.setText("Vecinos");
     colinda.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +118,15 @@ public class explorarTerritorio extends javax.swing.JFrame {
         colindaActionPerformed(evt);
       }
     });
-    bg.add(colinda, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 90, -1));
+    bg.add(colinda, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, 90, -1));
+
+    eliminar.setText("Eliminar");
+    eliminar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        eliminarActionPerformed(evt);
+      }
+    });
+    bg.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, -1, -1));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -137,7 +147,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
       String[] fila_seleccionada = lista.getSelectedValue().split(" ");
       String territorio_seleccionado = fila_seleccionada[0];
       String territorio_nombre = new String();
-      
+
       for (int i = 2; i < fila_seleccionada.length; i++) {
         if (fila_seleccionada[i].contains("(")) {
           break;
@@ -160,8 +170,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
       } else {
         JOptionPane.showMessageDialog(null, String.format("(%s) %s se subdivide en los siguientes territorios:\n%s", territorio_seleccionado, territorio_nombre, subterritorios.toString()));
       }
-    }
-    else {
+    } else {
       JOptionPane.showMessageDialog(null, "No ha seleccionado un territorio");
     }
   }//GEN-LAST:event_subterritoriosActionPerformed
@@ -173,8 +182,51 @@ public class explorarTerritorio extends javax.swing.JFrame {
   }//GEN-LAST:event_volverActionPerformed
 
   private void colindaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colindaActionPerformed
-    // TODO add your handling code here:
+    if (lista.getSelectedValue() != null) {
+      String[] fila_seleccionada = lista.getSelectedValue().split(" ");
+      String territorio_seleccionado = fila_seleccionada[0];
+      String territorio_nombre = new String();
+
+      for (int i = 2; i < fila_seleccionada.length; i++) {
+        if (fila_seleccionada[i].contains("(")) {
+          break;
+        }
+        territorio_nombre = territorio_nombre.concat(fila_seleccionada[i] + " ");
+      }
+      territorio_nombre = territorio_nombre.trim();
+
+      ResultSet rs = consultarBase(String.format("select t2.nombre from territorio_linda_con_territorio join territorio t1 on t1.id = territorio_linda_con_territorio.territorio_id join territorio t2 on t2.id = territorio_linda_con_territorio.territorio_id1 where t1.id = %s;", territorio_seleccionado));
+
+      ArrayList<String> vecinos = new ArrayList<String>();
+      try {
+        while (rs.next()) {
+          vecinos.add(rs.getString("nombre"));
+        }
+      } catch (SQLException ex) {
+        Logger.getLogger(explorarTerritorio.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      if (vecinos.isEmpty()) {
+        JOptionPane.showMessageDialog(null, String.format("%s no tiene territorios vecinos agregados\n", territorio_nombre));
+      } else {
+        JOptionPane.showMessageDialog(null, String.format("(%s) %s linda con los siguientes territorios:\n%s", territorio_seleccionado, territorio_nombre, vecinos.toString()));
+      }
+    } else {
+      JOptionPane.showMessageDialog(null, "No ha seleccionado un territorio");
+    }
   }//GEN-LAST:event_colindaActionPerformed
+
+  private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+    if (lista.getSelectedValue() != null) {
+      String territorio_seleccionado = lista.getSelectedValue().split(" ")[0];
+      actualizarBase.eliminar_territorio(territorio_seleccionado);
+      this.setVisible(false);
+      JFrame explorarTerritorio = new explorarTerritorio();
+      explorarTerritorio.setVisible(true);
+      JOptionPane.showMessageDialog(null, "El territorio fue eliminado exitosamente");
+    } else {
+      JOptionPane.showMessageDialog(null, "No ha seleccionado un territorio");
+    }
+  }//GEN-LAST:event_eliminarActionPerformed
 
   /**
    * @param args the command line arguments
@@ -217,6 +269,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel bg;
   private javax.swing.JButton colinda;
+  private javax.swing.JButton eliminar;
   private javax.swing.JList<String> lista;
   private javax.swing.JScrollPane scroll;
   private javax.swing.JButton subterritorios;
