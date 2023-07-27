@@ -33,10 +33,10 @@ public class principal extends javax.swing.JFrame {
 
     bg = new javax.swing.JPanel();
     pinkBg = new javax.swing.JPanel();
-    title = new javax.swing.JLabel();
     explorar = new javax.swing.JButton();
     modificar = new javax.swing.JButton();
     whiteBg = new javax.swing.JPanel();
+    title = new javax.swing.JLabel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setAutoRequestFocus(false);
@@ -60,11 +60,6 @@ public class principal extends javax.swing.JFrame {
 
     bg.add(pinkBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 300));
 
-    title.setFont(font);
-    title.setForeground(new java.awt.Color(0, 0, 0));
-    title.setText("Hola Mundo!");
-    bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
-
     explorar.setText("Explorar Territorios");
     explorar.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,15 +79,25 @@ public class principal extends javax.swing.JFrame {
     whiteBg.setBackground(new java.awt.Color(255, 255, 255));
     whiteBg.setForeground(new java.awt.Color(255, 255, 255));
 
+    title.setFont(font);
+    title.setForeground(new java.awt.Color(0, 0, 0));
+    title.setText("Información Geográfica");
+
     javax.swing.GroupLayout whiteBgLayout = new javax.swing.GroupLayout(whiteBg);
     whiteBg.setLayout(whiteBgLayout);
     whiteBgLayout.setHorizontalGroup(
       whiteBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 270, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, whiteBgLayout.createSequentialGroup()
+        .addContainerGap(124, Short.MAX_VALUE)
+        .addComponent(title)
+        .addContainerGap())
     );
     whiteBgLayout.setVerticalGroup(
       whiteBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 300, Short.MAX_VALUE)
+      .addGroup(whiteBgLayout.createSequentialGroup()
+        .addGap(58, 58, 58)
+        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(182, Short.MAX_VALUE))
     );
 
     bg.add(whiteBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 270, 300));

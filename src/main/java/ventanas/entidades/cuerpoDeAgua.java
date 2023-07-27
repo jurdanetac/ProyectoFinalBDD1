@@ -20,7 +20,7 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
     initComponents();
     // Center frame
     this.setLocationRelativeTo(null);
-    populateLista.populate("cuerpo_de_agua", lista, "nombre");
+    populateLista.populateCuerpoDeAgua(lista);
   }
 
   /**

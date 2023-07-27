@@ -20,7 +20,7 @@ public class serVivo extends javax.swing.JFrame {
     initComponents();
     // Center frame
     this.setLocationRelativeTo(null);
-    populateLista.populate("ser_vivo", lista, "nombre_comun");
+    populateLista.populateSerVivo(lista);
   }
 
   /**

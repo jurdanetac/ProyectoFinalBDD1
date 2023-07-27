@@ -20,7 +20,7 @@ public class simboloPatrio extends javax.swing.JFrame {
     initComponents();
     // Center frame
     this.setLocationRelativeTo(null);
-    populateLista.populate("simbolo_patrio", lista, "nombre");
+    populateLista.populateSimboloPatrio(lista);
   }
 
   /**

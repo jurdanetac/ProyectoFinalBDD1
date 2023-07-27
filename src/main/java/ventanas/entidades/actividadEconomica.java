@@ -20,7 +20,7 @@ public class actividadEconomica extends javax.swing.JFrame {
     initComponents();
     // Center frame
     this.setLocationRelativeTo(null);
-    populateLista.populate("actividad_economica", lista, "nombre");
+    populateLista.populateActividadEconomica(lista);
   }
 
   /**

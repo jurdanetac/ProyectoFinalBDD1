@@ -20,7 +20,7 @@ public class relieve extends javax.swing.JFrame {
     initComponents();
     // Center frame
     this.setLocationRelativeTo(null);
-    populateLista.populate("relieve", lista, "tipo");
+    populateLista.populateRelieve(lista);
   }
 
   /**
