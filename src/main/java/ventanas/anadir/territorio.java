@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -113,7 +114,6 @@ public class territorio extends javax.swing.JFrame {
     listaRelieve = new javax.swing.JList<>();
     jScrollPane4 = new javax.swing.JScrollPane();
     listaSerVivo = new javax.swing.JList<>();
-    limpiar = new javax.swing.JButton();
     jLabel12 = new javax.swing.JLabel();
     clima = new javax.swing.JTextField();
     jLabel13 = new javax.swing.JLabel();
@@ -247,14 +247,6 @@ public class territorio extends javax.swing.JFrame {
 
     getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 65));
 
-    limpiar.setText("Limpiar");
-    limpiar.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        limpiarActionPerformed(evt);
-      }
-    });
-    getContentPane().add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
-
     jLabel12.setText("Clima");
     getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 219, -1, -1));
 
@@ -325,12 +317,6 @@ public class territorio extends javax.swing.JFrame {
     // TODO add your handling code here:
   }//GEN-LAST:event_ubicacionActionPerformed
 
-  private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-    JFrame anadirTerritorio = new ventanas.anadir.territorio();
-    this.setVisible(false);
-    anadirTerritorio.setVisible(true);
-  }//GEN-LAST:event_limpiarActionPerformed
-
   private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
     if (nombre.getText().trim().isEmpty() || superficie.getText().trim().isEmpty() || tipo.getText().trim().isEmpty() || ubicacion.getText().trim().isEmpty() || habitantes.getText().trim().isEmpty() || clima.getText().trim().isEmpty()) {
       JOptionPane.showMessageDialog(null, "No debe dejar campos de texto en blanco");
@@ -364,38 +350,45 @@ public class territorio extends javax.swing.JFrame {
       stmt = connection.createStatement();
 
       ResultSet rs = consultarBase("SELECT * FROM territorio ORDER BY id DESC LIMIT 1;");
-      String territorio_creado_id = null;
+      rs.next();
 
-      while (rs.next()) {
-        territorio_creado_id = rs.getString("id");
-      }
+      String territorio_creado_id = rs.getString("id");
 
-      if (!listaActividadEconomica.getSelectedValuesList().isEmpty()) {
-        for (String str : listaActividadEconomica.getSelectedValuesList()) {
+      List<String> actividadesEconomicas = listaActividadEconomica.getSelectedValuesList();
+      List<String> cuerposDeAgua = listaCuerpoDeAgua.getSelectedValuesList();
+      List<String> vecinos = listaVecinos.getSelectedValuesList();
+      List<String> subterritorios = listaSubterritorios.getSelectedValuesList();
+      List<String> idiomas = listaIdioma.getSelectedValuesList();
+      List<String> seresVivos = listaSerVivo.getSelectedValuesList();
+      List<String> relieves = listaRelieve.getSelectedValuesList();
+
+      if (actividadesEconomicas.isEmpty()) {
+        for (String str : actividadesEconomicas) {
           str = str.trim();
           stmt.executeUpdate(String.format("INSERT INTO territorio_desarrolla_actividad_economica VALUES('%s', %s);", str.split(" ")[0], territorio_creado_id));
         }
       }
 
-      if (!listaRelieve.getSelectedValuesList().isEmpty()) {
-        for (String str : listaRelieve.getSelectedValuesList()) {
-          str = str.trim();
-          stmt.executeUpdate(String.format("INSERT INTO territorio_tiene_relieve VALUES(%s, '%s');", territorio_creado_id, str));
+      if (!relieves.isEmpty()) {
+        for (String str : relieves) {
+          utils.actualizarBase.insertar("territorio_tiene_relieve", String.format("(%s, '%s')", territorio_creado_id, str.trim()));
         }
       }
-      if (!listaSerVivo.getSelectedValuesList().isEmpty()) {
-        for (String str : listaSerVivo.getSelectedValuesList()) {
+
+      if (!seresVivos.isEmpty()) {
+        for (String str : seresVivos) {
           str = str.trim();
           String[] aux = str.split(" ");
-          stmt.executeUpdate(String.format("INSERT INTO territorio_tiene_ser_vivo VALUES(%s, '%s', '%s');", territorio_creado_id, aux[aux.length - 2], aux[aux.length - 1]));
+          utils.actualizarBase.insertar("territorio_tiene_ser_vivo", String.format("(%s, '%s', '%s')", territorio_creado_id, aux[aux.length - 2], aux[aux.length - 1]));
         }
       }
-      if (!listaIdioma.getSelectedValuesList().isEmpty()) {
+
+      if (!idiomas.isEmpty()) {
         String[] porcentajes = porcentaje.getText().trim().split(",");
         String[] oficiales = oficial.getText().trim().split(",");
 
-        for (int i = 0; i < listaIdioma.getSelectedValuesList().size(); i++) {
-          String str = listaIdioma.getSelectedValuesList().get(i).trim();
+        for (int i = 0; i < idiomas.size(); i++) {
+          String str = idiomas.get(i).trim();
           int oficial = 0;
 
           for (String oficiale : oficiales) {
@@ -404,50 +397,57 @@ public class territorio extends javax.swing.JFrame {
             }
           }
 
-          stmt.executeUpdate(String.format("INSERT INTO idioma_es_utilizado_en_territorio VALUES('%s', %s, %s, %s);", str, territorio_creado_id, porcentajes[i], oficial));
+          utils.actualizarBase.insertar("idioma_es_utilizado_en_territorio", String.format("('%s', %s, %s, %s)", str, territorio_creado_id, porcentajes[i], oficial));
         }
       }
-      if (!listaCuerpoDeAgua.getSelectedValuesList().isEmpty()) {
-        for (String str : listaCuerpoDeAgua.getSelectedValuesList()) {
-          str = str.trim();
-          stmt.executeUpdate(String.format("INSERT INTO territorio_tiene_cuerpo_de_agua VALUES(%s, '%s');", territorio_creado_id, str));
+
+      if (!cuerposDeAgua.isEmpty()) {
+        for (String c : cuerposDeAgua) {
+          utils.actualizarBase.insertar("territorio_tiene_cuerpo_de_agua", String.format("(%s, '%s')", territorio_creado_id, c.trim()));
         }
       }
-      if (!listaVecinos.getSelectedValuesList().isEmpty()) {
-        String[] vecinos = listaVecinos.getSelectedValuesList().toString().trim().split(" ");
+
+      if (!vecinos.isEmpty()) {
+        String[] v = vecinos.toString().trim().split(" ");
+
         ArrayList<Integer> vecinosId = new ArrayList<>();
 
-        for (String vecino : vecinos) {
+        for (String vecino : v) {
           try {
             vecinosId.add(Integer.parseInt(vecino));
           } catch (Exception e) {
           }
         }
-        for (Integer vecino : vecinosId) {
-          stmt.executeUpdate(String.format("INSERT INTO territorio_linda_con_territorio VALUES(%s, %s);", territorio_creado_id, vecino.toString()));
-          stmt.executeUpdate(String.format("INSERT INTO territorio_linda_con_territorio VALUES(%s, %s);", vecino.toString(), territorio_creado_id));
-        }
-        if (!listaSubterritorios.getSelectedValuesList().isEmpty()) {
-          String[] subterritorios = listaSubterritorios.getSelectedValuesList().toString().trim().split(" ");
-          ArrayList<Integer> subterritoriosId = new ArrayList<>();
 
-          for (String subterritorio : subterritorios) {
+        for (Integer vecino : vecinosId) {
+          utils.actualizarBase.insertar("territorio_linda_con_territorio", String.format("(%s, %s)", territorio_creado_id, vecino.toString()));
+
+          utils.actualizarBase.insertar("territorio_linda_con_territorio", String.format("(%s, %s)", vecino.toString(), territorio_creado_id));
+        }
+
+        if (!subterritorios.isEmpty()) {
+          String[] s = subterritorios.toString().trim().split(" ");
+          ArrayList<Integer> sId = new ArrayList<>();
+
+          for (String subterritorio : s) {
             try {
-              subterritoriosId.add(Integer.parseInt(subterritorio));
+              sId.add(Integer.parseInt(subterritorio));
             } catch (Exception e) {
             }
           }
-          for (Integer subterritorio : subterritoriosId) {
-            stmt.executeUpdate(String.format("INSERT INTO territorio_subdivide_en_territorio VALUES(%s, %s);", territorio_creado_id, subterritorio.toString()));
+
+          for (Integer subterritorio : sId) {
+            utils.actualizarBase.insertar("territorio_subdivide_en_territorio", String.format("(%s, %s)", territorio_creado_id, subterritorio.toString()));
           }
         }
       }
     } catch (SQLException ex) {
       Logger.getLogger(territorio.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      JFrame territorio = new ventanas.entidades.territorio();
+      this.setVisible(false);
+      territorio.setVisible(true);
     }
-    JFrame anadirTerritorio = new ventanas.anadir.territorio();
-    this.setVisible(false);
-    anadirTerritorio.setVisible(true);
   }//GEN-LAST:event_anadirActionPerformed
 
   private void climaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_climaActionPerformed
@@ -522,7 +522,6 @@ public class territorio extends javax.swing.JFrame {
   private javax.swing.JScrollPane jScrollPane5;
   private javax.swing.JScrollPane jScrollPane6;
   private javax.swing.JScrollPane jScrollPane7;
-  private javax.swing.JButton limpiar;
   private javax.swing.JList<String> listaActividadEconomica;
   private javax.swing.JList<String> listaCuerpoDeAgua;
   private javax.swing.JList<String> listaIdioma;
