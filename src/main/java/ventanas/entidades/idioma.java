@@ -8,19 +8,19 @@ import utils.populateLista;
  *
  * @author Juan Urdaneta
  */
-public class territorio extends javax.swing.JFrame {
+public class idioma extends javax.swing.JFrame {
 
   /**
-   * Creates new form territorio
+   * Creates new form relieve
    */
   public static Font font = null;
 
-  public territorio() {
+  public idioma() {
     font = utils.cargarFuente.robotoRegular();
     initComponents();
     // Center frame
     this.setLocationRelativeTo(null);
-    populateLista.populate("territorio", lista, "nombre");
+    populateLista.populateIdioma(lista);
   }
 
   /**
@@ -46,7 +46,7 @@ public class territorio extends javax.swing.JFrame {
 
     title.setFont(font);
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    title.setText("Territorio");
+    title.setText("Idioma");
     bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 310, -1));
 
     anadir.setText("Añadir");
@@ -97,9 +97,7 @@ public class territorio extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
-    JFrame anadir = new ventanas.anadir.territorio();
-    this.setVisible(false);
-    anadir.setVisible(true);
+    // TODO add your handling code here:
   }//GEN-LAST:event_anadirActionPerformed
 
   private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
@@ -129,21 +127,51 @@ public class territorio extends javax.swing.JFrame {
         }
       }
     } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(territorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(idioma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(territorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(idioma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(territorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(idioma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(territorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      java.util.logging.Logger.getLogger(idioma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
     //</editor-fold>
     //</editor-fold>
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new territorio().setVisible(true);
+        new idioma().setVisible(true);
       }
     });
   }

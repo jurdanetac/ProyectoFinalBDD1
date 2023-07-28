@@ -35,30 +35,31 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="volver" min="-2" pref="153" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
-              </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="territorio" alignment="1" max="32767" attributes="0"/>
-                              <Component id="cuerpoDeAgua" alignment="1" max="32767" attributes="0"/>
-                              <Component id="serVivo" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="relieve" alignment="1" max="32767" attributes="0"/>
-                              <Component id="actividadEconomica" alignment="1" max="32767" attributes="0"/>
-                              <Component id="simboloPatrio" alignment="1" min="-2" pref="153" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
                           <Component id="title" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="idioma" pref="153" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="territorio" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="cuerpoDeAgua" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="serVivo" alignment="1" pref="153" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="relieve" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="actividadEconomica" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="simboloPatrio" alignment="1" min="-2" pref="153" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="volver" alignment="1" min="-2" pref="153" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="30" max="32767" attributes="0"/>
@@ -85,9 +86,12 @@
                       <Component id="serVivo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="simboloPatrio" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="volver" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="36" max="32767" attributes="0"/>
+                  <EmptySpace pref="35" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="volver" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="idioma" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -155,6 +159,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="volverActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="idioma">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Idioma"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idiomaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

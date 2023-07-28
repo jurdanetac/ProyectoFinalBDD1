@@ -16,6 +16,28 @@ public class populateLista {
   private populateLista() {
   }
 
+  public static void populateIdioma(JList<String> lista) {
+    ResultSet rs = consultarBase(String.format("SELECT * FROM %s;", "idioma"));
+
+    DefaultListModel modeloLista = new DefaultListModel();
+
+    try {
+      while (rs.next()) {
+        String nombre = rs.getString("nombre");
+
+        modeloLista.addElement(String.format("%s", nombre));
+      }
+      lista.setModel(modeloLista);
+    } catch (SQLException ex) {
+      Logger.getLogger("idioma").log(Level.SEVERE, null, ex);
+    } finally {
+      try {
+        rs.close();
+      } catch (SQLException e) {
+        /* Ignored */ }
+    }
+  }
+
   public static void populateCuerpoDeAgua(JList<String> lista) {
     ResultSet rs = consultarBase(String.format("SELECT * FROM %s;", "cuerpo_de_agua"));
 
