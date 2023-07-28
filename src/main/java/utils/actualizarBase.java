@@ -82,7 +82,7 @@ try {
       connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/proyecto_final", "root", "");
 
       stmt = connection.createStatement();
-      System.out.println("INSERT INTO " + entidad + " " + valores + " VALUES " + values + ";");
+      // System.out.println("INSERT INTO " + entidad + " " + valores + " VALUES " + values + ";");
       stmt.executeUpdate("INSERT INTO " + entidad + " " + valores + " VALUES " + values + ";");
     } catch (SQLException ex) {
       Logger.getLogger(actualizarBase.class.getName()).log(Level.SEVERE, null, ex);

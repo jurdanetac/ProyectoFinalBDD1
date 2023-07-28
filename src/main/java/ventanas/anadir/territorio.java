@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ventanas.anadir;
 
 import java.awt.Font;
@@ -65,6 +61,8 @@ public class territorio extends javax.swing.JFrame {
       populateLista.populateIdioma(listaIdioma);
       populateLista.populateCuerpoDeAgua(listaCuerpoDeAgua);
       populateLista.populateActividadEconomica(listaActividadEconomica);
+      populateLista.populate("territorio", listaVecinos, "nombre");
+      populateLista.populate("territorio", listaSubterritorios, "nombre");
 
       ArrayList<String> territorios = null;
       ResultSet consulta = consultarBase("SELECT * FROM territorio;");
@@ -103,7 +101,6 @@ public class territorio extends javax.swing.JFrame {
     capital = new javax.swing.JComboBox<String>();
     jLabel7 = new javax.swing.JLabel();
     habitantes = new javax.swing.JTextField();
-    jLabel1 = new javax.swing.JLabel();
     jLabel8 = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
     listaCuerpoDeAgua = new javax.swing.JList<>();
@@ -116,17 +113,28 @@ public class territorio extends javax.swing.JFrame {
     listaRelieve = new javax.swing.JList<>();
     jScrollPane4 = new javax.swing.JScrollPane();
     listaSerVivo = new javax.swing.JList<>();
-    gentilicio = new javax.swing.JFormattedTextField();
     limpiar = new javax.swing.JButton();
     jLabel12 = new javax.swing.JLabel();
     clima = new javax.swing.JTextField();
     jLabel13 = new javax.swing.JLabel();
     jScrollPane6 = new javax.swing.JScrollPane();
     listaIdioma = new javax.swing.JList<>();
+    porcentaje = new javax.swing.JTextField();
+    JLabel15 = new javax.swing.JLabel();
+    jLabel14 = new javax.swing.JLabel();
+    oficial = new javax.swing.JTextField();
+    jLabel1 = new javax.swing.JLabel();
+    jLabel15 = new javax.swing.JLabel();
+    jScrollPane5 = new javax.swing.JScrollPane();
+    listaVecinos = new javax.swing.JList<>();
+    jScrollPane7 = new javax.swing.JScrollPane();
+    listaSubterritorios = new javax.swing.JList<>();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
     jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
     volver.setText("Volver");
     volver.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +142,7 @@ public class territorio extends javax.swing.JFrame {
         volverActionPerformed(evt);
       }
     });
+    getContentPane().add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
 
     anadir.setText("Añadir");
     anadir.addActionListener(new java.awt.event.ActionListener() {
@@ -141,31 +150,42 @@ public class territorio extends javax.swing.JFrame {
         anadirActionPerformed(evt);
       }
     });
+    getContentPane().add(anadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, -1));
 
     title.setFont(font);
     title.setText("Nuevo Territorio");
+    getContentPane().add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 14, -1, -1));
 
     jLabel2.setText("Nombre");
+    getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 51, -1, -1));
 
     nombre.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         nombreActionPerformed(evt);
       }
     });
+    getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 76, 272, -1));
 
     jLabel3.setText("Ubicación");
+    getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 107, -1, -1));
 
     ubicacion.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         ubicacionActionPerformed(evt);
       }
     });
+    getContentPane().add(ubicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 132, 130, -1));
 
     jLabel4.setText("Superficie");
+    getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, -1, -1));
+    getContentPane().add(superficie, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 132, 130, -1));
 
     jLabel5.setText("Tipo");
+    getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 163, -1, -1));
+    getContentPane().add(tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 188, 130, -1));
 
     jLabel6.setText("Capital");
+    getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
     capital.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
     capital.addActionListener(new java.awt.event.ActionListener() {
@@ -173,12 +193,14 @@ public class territorio extends javax.swing.JFrame {
         capitalActionPerformed(evt);
       }
     });
+    getContentPane().add(capital, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 210, -1));
 
     jLabel7.setText("Habitantes");
-
-    jLabel1.setText("Gentilicio");
+    getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
+    getContentPane().add(habitantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 188, 130, -1));
 
     jLabel8.setText("Cuerpo de Agua");
+    getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
     listaCuerpoDeAgua.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -187,7 +209,10 @@ public class territorio extends javax.swing.JFrame {
     });
     jScrollPane1.setViewportView(listaCuerpoDeAgua);
 
+    getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 170, 67));
+
     jLabel9.setText("Actividad Económica");
+    getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
 
     listaActividadEconomica.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -196,9 +221,13 @@ public class territorio extends javax.swing.JFrame {
     });
     jScrollPane2.setViewportView(listaActividadEconomica);
 
+    getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 170, 67));
+
     jLabel10.setText("Relieve");
+    getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, -1, -1));
 
     jLabel11.setText("Ser Vivo");
+    getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, -1, -1));
 
     listaRelieve.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -207,6 +236,8 @@ public class territorio extends javax.swing.JFrame {
     });
     jScrollPane3.setViewportView(listaRelieve);
 
+    getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 170, 65));
+
     listaSerVivo.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
       public int getSize() { return strings.length; }
@@ -214,11 +245,7 @@ public class territorio extends javax.swing.JFrame {
     });
     jScrollPane4.setViewportView(listaSerVivo);
 
-    gentilicio.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        gentilicioActionPerformed(evt);
-      }
-    });
+    getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 65));
 
     limpiar.setText("Limpiar");
     limpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -226,16 +253,20 @@ public class territorio extends javax.swing.JFrame {
         limpiarActionPerformed(evt);
       }
     });
+    getContentPane().add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
 
     jLabel12.setText("Clima");
+    getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 219, -1, -1));
 
     clima.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         climaActionPerformed(evt);
       }
     });
+    getContentPane().add(clima, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 238, 272, -1));
 
     jLabel13.setText("Idioma");
+    getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, -1, -1));
 
     listaIdioma.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -244,143 +275,39 @@ public class territorio extends javax.swing.JFrame {
     });
     jScrollPane6.setViewportView(listaIdioma);
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addGroup(layout.createSequentialGroup()
-            .addGap(16, 16, 16)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-              .addComponent(jLabel2)
-              .addComponent(title)
-              .addComponent(nombre)
-              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addGroup(layout.createSequentialGroup()
-                    .addComponent(jLabel12)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                  .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                      .addComponent(ubicacion)
-                      .addComponent(tipo)
-                      .addComponent(jLabel3)
-                      .addComponent(jLabel5)
-                      .addComponent(volver)
-                      .addComponent(clima, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addGroup(layout.createSequentialGroup()
-                    .addComponent(limpiar)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(anadir))
-                  .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                      .addComponent(jLabel1)
-                      .addComponent(habitantes))
-                    .addGap(1, 1, 1))
-                  .addComponent(jLabel7)
-                  .addComponent(gentilicio)
-                  .addComponent(superficie, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(jLabel4))))))
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
-            .addGap(18, 64, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(jLabel8)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel10))
-              .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(17, 17, 17))
-          .addGroup(layout.createSequentialGroup()
-            .addGap(64, 64, 64)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel6)
-                .addGap(0, 113, Short.MAX_VALUE))
-              .addComponent(capital, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(jLabel13)
-          .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(jScrollPane2)
-          .addComponent(jLabel11)
-          .addComponent(jScrollPane4)
-          .addComponent(jScrollPane6))
-        .addGap(29, 29, 29))
-    );
-    layout.setVerticalGroup(
-      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
-            .addGap(14, 14, 14)
-            .addComponent(title)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jLabel2)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel3)
-              .addComponent(jLabel4))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(superficie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel5)
-              .addComponent(jLabel7))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(habitantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel12)
-              .addComponent(jLabel1)
-              .addComponent(jLabel13)
-              .addComponent(jLabel6)))
-          .addGroup(layout.createSequentialGroup()
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(jLabel8)
-              .addComponent(jLabel9))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-              .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-              .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(capital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(clima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(gentilicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(18, 18, 18)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(volver)
-              .addComponent(limpiar)
-              .addComponent(anadir))))
-        .addContainerGap(31, Short.MAX_VALUE))
-    );
+    getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 160, 91));
+    getContentPane().add(porcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 123, -1));
+
+    JLabel15.setText("Porcentajes (,)");
+    getContentPane().add(JLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, -1, -1));
+
+    jLabel14.setText("Oficiales (,)");
+    getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, -1, -1));
+    getContentPane().add(oficial, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 123, -1));
+
+    jLabel1.setText("Vecinos");
+    getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, -1));
+
+    jLabel15.setText("Subterritorios");
+    getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, -1, -1));
+
+    listaVecinos.setModel(new javax.swing.AbstractListModel<String>() {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public String getElementAt(int i) { return strings[i]; }
+    });
+    jScrollPane5.setViewportView(listaVecinos);
+
+    getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 170, 90));
+
+    listaSubterritorios.setModel(new javax.swing.AbstractListModel<String>() {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public String getElementAt(int i) { return strings[i]; }
+    });
+    jScrollPane7.setViewportView(listaSubterritorios);
+
+    getContentPane().add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 170, 160));
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
@@ -397,10 +324,6 @@ public class territorio extends javax.swing.JFrame {
   private void ubicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubicacionActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_ubicacionActionPerformed
-
-  private void gentilicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gentilicioActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_gentilicioActionPerformed
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
     JFrame anadirTerritorio = new ventanas.anadir.territorio();
@@ -461,17 +384,63 @@ public class territorio extends javax.swing.JFrame {
         }
       }
       if (!listaSerVivo.getSelectedValuesList().isEmpty()) {
-        /*
         for (String str : listaSerVivo.getSelectedValuesList()) {
           str = str.trim();
           String[] aux = str.split(" ");
-          stmt.executeUpdate(String.format("INSERT INTO territorio_tiene_ser_vivo VALUES(%s, '%s', '%s');", territorio_creado_id, aux[aux.length-1], aux[aux.length-2]));
+          stmt.executeUpdate(String.format("INSERT INTO territorio_tiene_ser_vivo VALUES(%s, '%s', '%s');", territorio_creado_id, aux[aux.length - 2], aux[aux.length - 1]));
         }
-        */
       }
       if (!listaIdioma.getSelectedValuesList().isEmpty()) {
+        String[] porcentajes = porcentaje.getText().trim().split(",");
+        String[] oficiales = oficial.getText().trim().split(",");
+
+        for (int i = 0; i < listaIdioma.getSelectedValuesList().size(); i++) {
+          String str = listaIdioma.getSelectedValuesList().get(i).trim();
+          int oficial = 0;
+
+          for (String oficiale : oficiales) {
+            if (oficiale.equals(str)) {
+              oficial = 1;
+            }
+          }
+
+          stmt.executeUpdate(String.format("INSERT INTO idioma_es_utilizado_en_territorio VALUES('%s', %s, %s, %s);", str, territorio_creado_id, porcentajes[i], oficial));
+        }
       }
       if (!listaCuerpoDeAgua.getSelectedValuesList().isEmpty()) {
+        for (String str : listaCuerpoDeAgua.getSelectedValuesList()) {
+          str = str.trim();
+          stmt.executeUpdate(String.format("INSERT INTO territorio_tiene_cuerpo_de_agua VALUES(%s, '%s');", territorio_creado_id, str));
+        }
+      }
+      if (!listaVecinos.getSelectedValuesList().isEmpty()) {
+        String[] vecinos = listaVecinos.getSelectedValuesList().toString().trim().split(" ");
+        ArrayList<Integer> vecinosId = new ArrayList<>();
+
+        for (String vecino : vecinos) {
+          try {
+            vecinosId.add(Integer.parseInt(vecino));
+          } catch (Exception e) {
+          }
+        }
+        for (Integer vecino : vecinosId) {
+          stmt.executeUpdate(String.format("INSERT INTO territorio_linda_con_territorio VALUES(%s, %s);", territorio_creado_id, vecino.toString()));
+          stmt.executeUpdate(String.format("INSERT INTO territorio_linda_con_territorio VALUES(%s, %s);", vecino.toString(), territorio_creado_id));
+        }
+        if (!listaSubterritorios.getSelectedValuesList().isEmpty()) {
+          String[] subterritorios = listaSubterritorios.getSelectedValuesList().toString().trim().split(" ");
+          ArrayList<Integer> subterritoriosId = new ArrayList<>();
+
+          for (String subterritorio : subterritorios) {
+            try {
+              subterritoriosId.add(Integer.parseInt(subterritorio));
+            } catch (Exception e) {
+            }
+          }
+          for (Integer subterritorio : subterritoriosId) {
+            stmt.executeUpdate(String.format("INSERT INTO territorio_subdivide_en_territorio VALUES(%s, %s);", territorio_creado_id, subterritorio.toString()));
+          }
+        }
       }
     } catch (SQLException ex) {
       Logger.getLogger(territorio.class.getName()).log(Level.SEVERE, null, ex);
@@ -525,16 +494,18 @@ public class territorio extends javax.swing.JFrame {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JLabel JLabel15;
   private javax.swing.JButton anadir;
   private javax.swing.JComboBox<String> capital;
   private javax.swing.JTextField clima;
-  private javax.swing.JFormattedTextField gentilicio;
   private javax.swing.JTextField habitantes;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel10;
   private javax.swing.JLabel jLabel11;
   private javax.swing.JLabel jLabel12;
   private javax.swing.JLabel jLabel13;
+  private javax.swing.JLabel jLabel14;
+  private javax.swing.JLabel jLabel15;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JLabel jLabel4;
@@ -548,14 +519,20 @@ public class territorio extends javax.swing.JFrame {
   private javax.swing.JScrollPane jScrollPane2;
   private javax.swing.JScrollPane jScrollPane3;
   private javax.swing.JScrollPane jScrollPane4;
+  private javax.swing.JScrollPane jScrollPane5;
   private javax.swing.JScrollPane jScrollPane6;
+  private javax.swing.JScrollPane jScrollPane7;
   private javax.swing.JButton limpiar;
   private javax.swing.JList<String> listaActividadEconomica;
   private javax.swing.JList<String> listaCuerpoDeAgua;
   private javax.swing.JList<String> listaIdioma;
   private javax.swing.JList<String> listaRelieve;
   private javax.swing.JList<String> listaSerVivo;
+  private javax.swing.JList<String> listaSubterritorios;
+  private javax.swing.JList<String> listaVecinos;
   private javax.swing.JTextField nombre;
+  private javax.swing.JTextField oficial;
+  private javax.swing.JTextField porcentaje;
   private javax.swing.JTextField superficie;
   private javax.swing.JTextField tipo;
   private javax.swing.JLabel title;
