@@ -3,7 +3,6 @@ package ventanas.anadir;
 import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,8 +25,8 @@ public class territorio extends javax.swing.JFrame {
 
   class ComboItem {
 
-    private String key;
-    private String value;
+    private final String key;
+    private final String value;
 
     public ComboItem(String key, String value) {
       this.key = key;
@@ -49,26 +48,34 @@ public class territorio extends javax.swing.JFrame {
   }
 
   public territorio() {
-    try {
-      font = utils.cargarFuente.robotoRegular();
-      initComponents();
-      // Center frame
-      this.setLocationRelativeTo(null);
-      this.setResizable(false);
-      populateLista.populateSerVivo(listaSerVivo);
-      populateLista.populateRelieve(listaRelieve);
-      populateLista.populateIdioma(listaIdioma);
-      populateLista.populateCuerpoDeAgua(listaCuerpoDeAgua);
-      populateLista.populateActividadEconomica(listaActividadEconomica);
-      populateLista.populate("territorio", listaVecinos, "nombre");
-      populateLista.populate("territorio", listaSubterritorios, "nombre");
+    font = utils.cargarFuente.robotoRegular();
+    initComponents();
+    // Center frame
+    this.setLocationRelativeTo(null);
+    this.setResizable(false);
 
-      ArrayList<String> territorios = null;
-      ResultSet consulta = consultarBase("SELECT * FROM territorio;");
-      capital.removeAllItems();
-      capital.addItem("Seleccione");
-      while (consulta.next()) {
-        capital.addItem(consulta.getString("id") + " - " + new ComboItem(consulta.getString("nombre"), consulta.getString("id")).toString());
+    // Populate all JLists in form
+    populateLista.populateSerVivo(listaSerVivo);
+    populateLista.populateRelieve(listaRelieve);
+    populateLista.populateIdioma(listaIdioma);
+    populateLista.populateCuerpoDeAgua(listaCuerpoDeAgua);
+    populateLista.populateActividadEconomica(listaActividadEconomica);
+    populateLista.populate("territorio", listaVecinos, "nombre");
+    populateLista.populate("territorio", listaSubterritorios, "nombre");
+
+    ResultSet territorios = consultarBase("SELECT * FROM territorio;");
+
+    // remove default 'item 1, item2...' in capital JForm and add default one
+    capital.removeAllItems();
+    capital.addItem("Seleccione");
+
+    try {
+      while (territorios.next()) {
+        // there are no 'country' capitals, remove unnecessary entries from list
+        if (territorios.getString("tipo").toLowerCase().equals("pais") || territorios.getString("tipo").toLowerCase().equals("país")) {
+          return;
+        }
+        capital.addItem(territorios.getString("id") + " - " + new ComboItem(territorios.getString("nombre"), territorios.getString("tipo")));
       }
     } catch (SQLException ex) {
       Logger.getLogger(territorio.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,6 +134,9 @@ public class territorio extends javax.swing.JFrame {
     listaVecinos = new javax.swing.JList<>();
     jScrollPane7 = new javax.swing.JScrollPane();
     listaSubterritorios = new javax.swing.JList<>();
+    limpiar = new javax.swing.JButton();
+    jLabel16 = new javax.swing.JLabel();
+    gentilicio = new javax.swing.JTextField();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -183,7 +193,7 @@ public class territorio extends javax.swing.JFrame {
     getContentPane().add(tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 188, 130, -1));
 
     jLabel6.setText("Capital");
-    getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+    getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, -1, -1));
 
     capital.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
     capital.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +201,7 @@ public class territorio extends javax.swing.JFrame {
         capitalActionPerformed(evt);
       }
     });
-    getContentPane().add(capital, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 210, -1));
+    getContentPane().add(capital, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 90, -1));
 
     jLabel7.setText("Habitantes");
     getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
@@ -266,20 +276,20 @@ public class territorio extends javax.swing.JFrame {
     jScrollPane6.setViewportView(listaIdioma);
 
     getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 160, 91));
-    getContentPane().add(porcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 123, -1));
+    getContentPane().add(porcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 240, 170, -1));
 
     JLabel15.setText("Porcentajes (,)");
     getContentPane().add(JLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, -1, -1));
 
     jLabel14.setText("Oficiales (,)");
     getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, -1, -1));
-    getContentPane().add(oficial, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 123, -1));
+    getContentPane().add(oficial, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 310, 170, -1));
 
     jLabel1.setText("Vecinos");
     getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, -1));
 
     jLabel15.setText("Subterritorios");
-    getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, -1, -1));
+    getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, -1, -1));
 
     listaVecinos.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -288,7 +298,7 @@ public class territorio extends javax.swing.JFrame {
     });
     jScrollPane5.setViewportView(listaVecinos);
 
-    getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 170, 90));
+    getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 170, 110));
 
     listaSubterritorios.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -297,7 +307,25 @@ public class territorio extends javax.swing.JFrame {
     });
     jScrollPane7.setViewportView(listaSubterritorios);
 
-    getContentPane().add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 170, 160));
+    getContentPane().add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 180, 170, 140));
+
+    limpiar.setText("Limpiar");
+    limpiar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        limpiarActionPerformed(evt);
+      }
+    });
+    getContentPane().add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, -1, -1));
+
+    jLabel16.setText("Gentilicio");
+    getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+
+    gentilicio.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        gentilicioActionPerformed(evt);
+      }
+    });
+    getContentPane().add(gentilicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 170, -1));
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
@@ -316,10 +344,8 @@ public class territorio extends javax.swing.JFrame {
   }//GEN-LAST:event_ubicacionActionPerformed
 
   private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
-    JTextField[] camposDeTexto = {nombre, tipo, superficie, ubicacion, habitantes, clima};
+    JTextField[] camposDeTexto = {tipo, nombre, ubicacion, superficie, habitantes, clima};
     String[] camposDeTextoContenido = new String[camposDeTexto.length + 1];
-    camposDeTextoContenido[camposDeTextoContenido.length - 1] = null;
-
     int index = 0;
 
     for (JTextField campoDeTexto : camposDeTexto) {
@@ -338,7 +364,7 @@ public class territorio extends javax.swing.JFrame {
     String territorio = String.format("('%s', '%s', '%s', %s, %s, '%s', %s)", (Object[]) camposDeTextoContenido);
 
     if (capital.getSelectedIndex() != 0) {
-      territorio = territorio.substring(0, 6) + String.format(", %s", camposDeTextoContenido[camposDeTextoContenido.length - 1]);
+      territorio = territorio.substring(0, territorio.lastIndexOf(",")) + String.format(", %s)", camposDeTextoContenido[camposDeTextoContenido.length - 1]);
     }
 
     utils.actualizarBase.insertar("territorio", territorio);
@@ -352,6 +378,7 @@ public class territorio extends javax.swing.JFrame {
       territorio_creado_id = rs.getString("id");
     } catch (SQLException ex) {
       Logger.getLogger(territorio.class.getName()).log(Level.SEVERE, null, ex);
+      return;
     }
 
     List<String> actividadesEconomicas = listaActividadEconomica.getSelectedValuesList();
@@ -362,15 +389,15 @@ public class territorio extends javax.swing.JFrame {
     List<String> seresVivos = listaSerVivo.getSelectedValuesList();
     List<String> relieves = listaRelieve.getSelectedValuesList();
 
-    if (actividadesEconomicas.isEmpty()) {
-      for (String act : actividadesEconomicas) {
-        utils.actualizarBase.insertar("territorio_desarrolla_actividad_economica", String.format("('%s', %s)", act.trim().split(" ")[0], territorio_creado_id));
-      }
-    }
-
     if (!relieves.isEmpty()) {
       for (String rlv : relieves) {
         utils.actualizarBase.insertar("territorio_tiene_relieve", String.format("(%s, '%s')", territorio_creado_id, rlv.trim()));
+      }
+    }
+
+    if (!cuerposDeAgua.isEmpty()) {
+      for (String c : cuerposDeAgua) {
+        utils.actualizarBase.insertar("territorio_tiene_cuerpo_de_agua", String.format("(%s, '%s')", territorio_creado_id, c.trim()));
       }
     }
 
@@ -386,63 +413,69 @@ public class territorio extends javax.swing.JFrame {
       String[] porcentajes = porcentaje.getText().trim().split(",");
       String[] oficiales = oficial.getText().trim().split(",");
 
-      for (int i = 0; i < idiomas.size(); i++) {
-        String str = idiomas.get(i).trim();
-        int oficial = 0;
+      if (porcentajes.length == 0) {
+        JOptionPane.showMessageDialog(null, "No debe dejar los porcentajes en blanco");
+        return;
+      } else {
+        for (int i = 0; i < idiomas.size(); i++) {
+          String idioma = idiomas.get(i).trim();
+          int oficial = 0;
 
-        for (String oficiale : oficiales) {
-          if (oficiale.equals(str)) {
-            oficial = 1;
+          for (String ofic : oficiales) {
+            if (ofic.equals(idioma)) {
+              oficial = 1;
+            }
           }
-        }
 
-        utils.actualizarBase.insertar("idioma_es_utilizado_en_territorio", String.format("('%s', %s, %s, %s)", str, territorio_creado_id, porcentajes[i], oficial));
-      }
-    }
-
-    if (!cuerposDeAgua.isEmpty()) {
-      for (String c : cuerposDeAgua) {
-        utils.actualizarBase.insertar("territorio_tiene_cuerpo_de_agua", String.format("(%s, '%s')", territorio_creado_id, c.trim()));
-      }
-    }
-
-    if (!vecinos.isEmpty()) {
-      String[] v = vecinos.toString().trim().split(" ");
-
-      ArrayList<Integer> vecinosId = new ArrayList<>();
-
-      for (String vecino : v) {
-        try {
-          vecinosId.add(Integer.parseInt(vecino));
-        } catch (Exception e) {
-        }
-      }
-
-      for (Integer vecino : vecinosId) {
-        utils.actualizarBase.insertar("territorio_linda_con_territorio", String.format("(%s, %s)", territorio_creado_id, vecino.toString()));
-
-        utils.actualizarBase.insertar("territorio_linda_con_territorio", String.format("(%s, %s)", vecino.toString(), territorio_creado_id));
-      }
-
-      if (!subterritorios.isEmpty()) {
-        String[] s = subterritorios.toString().trim().split(" ");
-        ArrayList<Integer> sId = new ArrayList<>();
-
-        for (String subterritorio : s) {
-          try {
-            sId.add(Integer.parseInt(subterritorio));
-          } catch (Exception e) {
-          }
-        }
-
-        for (Integer subterritorio : sId) {
-          utils.actualizarBase.insertar("territorio_subdivide_en_territorio", String.format("(%s, %s)", territorio_creado_id, subterritorio.toString()));
+          utils.actualizarBase.insertar("idioma_es_utilizado_en_territorio", String.format("('%s', %s, %s, %s)", idioma, territorio_creado_id, porcentajes[i], oficial));
         }
       }
     }
-    JFrame ventanaTerritorio = new ventanas.entidades.territorio();
-    this.setVisible(false);
-    ventanaTerritorio.setVisible(true);
+
+    if (!actividadesEconomicas.isEmpty()) {
+      for (String act : actividadesEconomicas) {
+        utils.actualizarBase.insertar("territorio_desarrolla_actividad_economica", String.format("('%s', %s)", act.trim().split(" ")[0], territorio_creado_id));
+      }
+    }
+
+    String[] gentilicios = gentilicio.getText().trim().split(",");
+
+    for (String gentilicio : gentilicios) {
+      if (!gentilicio.isEmpty()) {
+        utils.actualizarBase.insertar("gentilicio", String.format("('%s', %s)", gentilicio, territorio_creado_id));
+      }
+    }
+
+    if (!subterritorios.isEmpty()) {
+      String[] subterIds = new String[subterritorios.size()];
+
+      for (int i = 0; i < subterritorios.size(); i++) {
+        subterIds[i] = subterritorios.get(i).split(" ")[0];
+      }
+
+      for (String subterritorio : subterIds) {
+        utils.actualizarBase.insertar("territorio_subdivide_en_territorio", String.format("(%s, %s)", territorio_creado_id, subterritorio));
+      }
+
+      if (!vecinos.isEmpty()) {
+        String[] vcsIds = new String[vecinos.size()];
+
+        for (int i = 0; i < vecinos.size(); i++) {
+          vcsIds[i] = vecinos.get(i).split(" ")[0];
+        }
+
+        for (String vecino : vcsIds) {
+          // x linda con y
+          utils.actualizarBase.insertar("territorio_linda_con_territorio", String.format("(%s, %s)", territorio_creado_id, vecino));
+          // y linda con x
+          utils.actualizarBase.insertar("territorio_linda_con_territorio", String.format("(%s, %s)", vecino.toString(), territorio_creado_id));
+        }
+      }
+
+      JFrame entidadesTerritorio = new ventanas.entidades.territorio();
+      this.setVisible(false);
+      entidadesTerritorio.setVisible(true);
+    }
   }//GEN-LAST:event_anadirActionPerformed
 
   private void climaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_climaActionPerformed
@@ -452,6 +485,16 @@ public class territorio extends javax.swing.JFrame {
   private void capitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capitalActionPerformed
     // TODO add your handling code here:
   }//GEN-LAST:event_capitalActionPerformed
+
+  private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+    JFrame anadirTerritorio = new ventanas.anadir.territorio();
+    this.setVisible(false);
+    anadirTerritorio.setVisible(true);
+  }//GEN-LAST:event_limpiarActionPerformed
+
+  private void gentilicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gentilicioActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_gentilicioActionPerformed
 
   /**
    * @param args the command line arguments
@@ -493,6 +536,7 @@ public class territorio extends javax.swing.JFrame {
   private javax.swing.JButton anadir;
   private javax.swing.JComboBox<String> capital;
   private javax.swing.JTextField clima;
+  private javax.swing.JTextField gentilicio;
   private javax.swing.JTextField habitantes;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel10;
@@ -501,6 +545,7 @@ public class territorio extends javax.swing.JFrame {
   private javax.swing.JLabel jLabel13;
   private javax.swing.JLabel jLabel14;
   private javax.swing.JLabel jLabel15;
+  private javax.swing.JLabel jLabel16;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JLabel jLabel4;
@@ -517,6 +562,7 @@ public class territorio extends javax.swing.JFrame {
   private javax.swing.JScrollPane jScrollPane5;
   private javax.swing.JScrollPane jScrollPane6;
   private javax.swing.JScrollPane jScrollPane7;
+  private javax.swing.JButton limpiar;
   private javax.swing.JList<String> listaActividadEconomica;
   private javax.swing.JList<String> listaCuerpoDeAgua;
   private javax.swing.JList<String> listaIdioma;

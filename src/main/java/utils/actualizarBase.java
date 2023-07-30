@@ -14,31 +14,6 @@ import javax.swing.JOptionPane;
  */
 public class actualizarBase {
 
-  /*
-  private static void anadir(String entidad, String id, String idd) {
-    Connection connection = null;
-    Statement stmt = null;
-
-    try {
-      // Conectarse a la base de datos `proyecto_final` como usuario root
-      connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/proyecto_final", "root", "");
-
-      stmt = connection.createStatement();
-      stmt.executeUpdate(String.format("INSERT INTO %s VALUES()", ));
-
-    } catch (SQLException ex) {
-      Logger.getLogger(actualizarBase.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
-      try {
-        stmt.close();
-      } catch (SQLException e) {
-      }
-try {
-        connection.close();
-      } catch (SQLException e) {
-      }
-    }
-   */
   public static void insertar(String entidad, String values) {
     String valores = "";
 
@@ -82,8 +57,9 @@ try {
       connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/proyecto_final", "root", "");
 
       stmt = connection.createStatement();
-      // System.out.println("INSERT INTO " + entidad + " " + valores + " VALUES " + values + ";");
-      stmt.executeUpdate("INSERT INTO " + entidad + " " + valores + " VALUES " + values + ";");
+      String query = "INSERT INTO " + entidad + " " + valores + " VALUES " + values + ";";
+      Logger.getLogger(actualizarBase.class.getName()).log(Level.INFO, query);
+      stmt.executeUpdate(query);
     } catch (SQLException ex) {
       Logger.getLogger(actualizarBase.class.getName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(null, "Revise los dominios de los datos ingresados");
