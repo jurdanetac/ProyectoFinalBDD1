@@ -374,7 +374,7 @@ public class territorio extends javax.swing.JFrame {
       territorio = territorio.substring(0, territorio.lastIndexOf(",")) + String.format(", %s)", camposDeTextoContenido[camposDeTextoContenido.length - 1]);
     }
 
-    utils.actualizarBase.eliminar_territorio(territorio_id);
+    utils.actualizarBase.eliminarTerritorio(territorio_id);
     utils.actualizarBase.insertar("territorio_con_id", territorio);
 
     List<String> actividadesEconomicas = listaActividadEconomica.getSelectedValuesList();

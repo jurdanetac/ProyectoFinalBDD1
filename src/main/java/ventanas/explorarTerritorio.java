@@ -196,7 +196,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
   private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
     if (lista.getSelectedValue() != null) {
       String territorio_seleccionado = lista.getSelectedValue().split(" ")[0];
-      actualizarBase.eliminar_territorio(territorio_seleccionado);
+      actualizarBase.eliminarTerritorio(territorio_seleccionado);
       this.setVisible(false);
       JFrame explorarTerritorio = new explorarTerritorio();
       explorarTerritorio.setVisible(true);

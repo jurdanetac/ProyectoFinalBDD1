@@ -104,7 +104,36 @@ public class actualizarBase {
     }
   }
 
-  public static void eliminar_territorio(String id) {
+  public static void eliminarSerVivo(String genero, String especie) {
+    Connection connection = null;
+    Statement stmt = null;
+
+    try {
+      // Conectarse a la base de datos `proyecto_final` como usuario root
+      connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/proyecto_final", "root", "");
+
+      stmt = connection.createStatement();
+      String query = String.format("DELETE FROM ser_vivo WHERE genero = '%s' AND especie = '%s';", genero, especie);
+
+      Logger.getLogger(actualizarBase.class.getName()).log(Level.INFO, query);
+      stmt.executeUpdate(query);
+
+    } catch (SQLException ex) {
+      Logger.getLogger(actualizarBase.class
+          .getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      try {
+        stmt.close();
+      } catch (SQLException e) {
+        /* Ignored */ }
+      try {
+        connection.close();
+      } catch (SQLException e) {
+        /* Ignored */ }
+    }
+  }
+
+  public static void eliminarTerritorio(String id) {
     Connection connection = null;
 
     try {
