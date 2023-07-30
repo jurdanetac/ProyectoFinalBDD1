@@ -2,7 +2,9 @@ package ventanas.entidades;
 
 import java.awt.Font;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import utils.populateLista;
+
 
 /**
  *
@@ -109,7 +111,12 @@ public class territorio extends javax.swing.JFrame {
   }//GEN-LAST:event_volverActionPerformed
 
   private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-    // TODO add your handling code here:
+    JList<String> lista = this.lista;
+    String id = lista.getSelectedValue().split(" ")[0];
+
+    JFrame editar = new ventanas.editar.territorio(id);
+    this.setVisible(false);
+    editar.setVisible(true);
   }//GEN-LAST:event_editarActionPerformed
 
   /**

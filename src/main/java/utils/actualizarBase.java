@@ -35,6 +35,9 @@ public class actualizarBase {
       valores = "(id,nombre,descripcion,territorio_id)";
     } else if ("territorio".equals(entidad)) {
       valores = "(tipo,nombre,ubicacion,superficie,nro_habitantes,clima,territorio_capital_id)";
+    } else if ("territorio_con_id".equals(entidad)) {
+      valores = "(id, tipo,nombre,ubicacion,superficie,nro_habitantes,clima,territorio_capital_id)";
+      entidad = "territorio";
     } else if ("territorio_desarrolla_actividad_economica".equals(entidad)) {
       valores = "(actividad_economica_nombre,territorio_id)";
     } else if ("territorio_linda_con_territorio".equals(entidad)) {
@@ -75,7 +78,9 @@ public class actualizarBase {
       connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/proyecto_final", "root", "");
 
       stmt = connection.createStatement();
-      stmt.executeUpdate(String.format("DELETE FROM %s WHERE %s = %s;", entidad, id, idd));
+      String query = String.format("DELETE FROM %s WHERE %s = %s;", entidad, id, idd);
+      Logger.getLogger(actualizarBase.class.getName()).log(Level.INFO, query);
+      stmt.executeUpdate(query);
 
     } catch (SQLException ex) {
       Logger.getLogger(actualizarBase.class
