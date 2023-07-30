@@ -2,6 +2,7 @@ package ventanas.entidades;
 
 import java.awt.Font;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import utils.populateLista;
 
 /**
@@ -39,6 +40,7 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
     lista = new javax.swing.JList<>();
     volver = new javax.swing.JButton();
     editar = new javax.swing.JButton();
+    eliminar = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,7 +57,7 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
         anadirActionPerformed(evt);
       }
     });
-    bg.add(anadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 90, -1));
+    bg.add(anadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 90, -1));
 
     lista.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -72,7 +74,7 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
         volverActionPerformed(evt);
       }
     });
-    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 90, -1));
+    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 90, -1));
 
     editar.setText("Editar");
     editar.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +82,15 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
         editarActionPerformed(evt);
       }
     });
-    bg.add(editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 90, -1));
+    bg.add(editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 90, -1));
+
+    eliminar.setText("Eliminar");
+    eliminar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        eliminarActionPerformed(evt);
+      }
+    });
+    bg.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -97,7 +107,9 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
-    // TODO add your handling code here:
+    JFrame nuevoCuerpoDeAgua = new ventanas.anadir.cuerpoDeAgua();
+    this.setVisible(false);
+    nuevoCuerpoDeAgua.setVisible(true);
   }//GEN-LAST:event_anadirActionPerformed
 
   private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
@@ -107,8 +119,22 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
   }//GEN-LAST:event_volverActionPerformed
 
   private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-    // TODO add your handling code here:
+    JList<String> lista = this.lista;
+    String id = lista.getSelectedValue();
+
+    JFrame editarCuerpoDeAgua = new ventanas.editar.cuerpoDeAgua(id);
+    this.setVisible(false);
+    editarCuerpoDeAgua.setVisible(true);
   }//GEN-LAST:event_editarActionPerformed
+
+  private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+    String cuerpoDeAgua = lista.getSelectedValue();
+    utils.actualizarBase.eliminar("cuerpo_de_agua", "nombre", cuerpoDeAgua);
+
+    JFrame cuerposDeAgua = new ventanas.entidades.cuerpoDeAgua();
+    this.setVisible(false);
+    cuerposDeAgua.setVisible(true);
+  }//GEN-LAST:event_eliminarActionPerformed
 
   /**
    * @param args the command line arguments
@@ -149,6 +175,7 @@ public class cuerpoDeAgua extends javax.swing.JFrame {
   private javax.swing.JButton anadir;
   private javax.swing.JPanel bg;
   private javax.swing.JButton editar;
+  private javax.swing.JButton eliminar;
   private javax.swing.JList<String> lista;
   private javax.swing.JScrollPane scroll;
   private javax.swing.JLabel title;

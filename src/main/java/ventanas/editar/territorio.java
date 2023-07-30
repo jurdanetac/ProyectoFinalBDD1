@@ -483,9 +483,9 @@ public class territorio extends javax.swing.JFrame {
   }//GEN-LAST:event_capitalActionPerformed
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-    // JFrame anadirTerritorio = new ventanas.anadir.territorio();
-    // this.setVisible(false);
-    // anadirTerritorio.setVisible(true);
+    JFrame editarTerritorio = new ventanas.editar.territorio(territorio_id);
+    this.setVisible(false);
+    editarTerritorio.setVisible(true);
   }//GEN-LAST:event_limpiarActionPerformed
 
   private void gentilicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gentilicioActionPerformed

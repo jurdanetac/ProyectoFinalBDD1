@@ -69,7 +69,7 @@ public class actualizarBase {
     }
   }
 
-  private static void eliminar(String entidad, String id, String idd) {
+  public static void eliminar(String entidad, String col, String id) {
     Connection connection = null;
     Statement stmt = null;
 
@@ -78,7 +78,14 @@ public class actualizarBase {
       connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/proyecto_final", "root", "");
 
       stmt = connection.createStatement();
-      String query = String.format("DELETE FROM %s WHERE %s = %s;", entidad, id, idd);
+      String query;
+      try {
+        int idInt = Integer.parseInt(id);
+        query = String.format("DELETE FROM %s WHERE %s = %s;", entidad, col, id);
+      } catch (NumberFormatException e) {
+        query = String.format("DELETE FROM %s WHERE %s = '%s';", entidad, col, id);
+      }
+
       Logger.getLogger(actualizarBase.class.getName()).log(Level.INFO, query);
       stmt.executeUpdate(query);
 

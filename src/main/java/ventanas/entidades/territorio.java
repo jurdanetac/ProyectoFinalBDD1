@@ -114,9 +114,9 @@ public class territorio extends javax.swing.JFrame {
     JList<String> lista = this.lista;
     String id = lista.getSelectedValue().split(" ")[0];
 
-    JFrame editar = new ventanas.editar.territorio(id);
+    JFrame editarTerritorio = new ventanas.editar.territorio(id);
     this.setVisible(false);
-    editar.setVisible(true);
+    editarTerritorio.setVisible(true);
   }//GEN-LAST:event_editarActionPerformed
 
   /**
