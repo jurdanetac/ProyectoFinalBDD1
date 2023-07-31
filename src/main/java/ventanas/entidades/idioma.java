@@ -38,7 +38,7 @@ public class idioma extends javax.swing.JFrame {
     scroll = new javax.swing.JScrollPane();
     lista = new javax.swing.JList<>();
     volver = new javax.swing.JButton();
-    editar = new javax.swing.JButton();
+    eliminar = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,15 +72,15 @@ public class idioma extends javax.swing.JFrame {
         volverActionPerformed(evt);
       }
     });
-    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 90, -1));
+    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 90, -1));
 
-    editar.setText("Editar");
-    editar.addActionListener(new java.awt.event.ActionListener() {
+    eliminar.setText("Eliminar");
+    eliminar.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        editarActionPerformed(evt);
+        eliminarActionPerformed(evt);
       }
     });
-    bg.add(editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 90, -1));
+    bg.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, -1, -1));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -97,7 +97,9 @@ public class idioma extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
-    // TODO add your handling code here:
+    JFrame nuevoIdioma = new ventanas.anadir.idioma();
+    this.setVisible(false);
+    nuevoIdioma.setVisible(true);
   }//GEN-LAST:event_anadirActionPerformed
 
   private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
@@ -106,9 +108,14 @@ public class idioma extends javax.swing.JFrame {
     menuEntidades.setVisible(true);
   }//GEN-LAST:event_volverActionPerformed
 
-  private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_editarActionPerformed
+  private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+    String nombre = lista.getSelectedValue();
+    utils.actualizarBase.eliminar("idioma", "nombre", nombre);
+    
+    JFrame idioma = new ventanas.entidades.idioma();
+    this.setVisible(false);
+    idioma.setVisible(true);
+  }//GEN-LAST:event_eliminarActionPerformed
 
   /**
    * @param args the command line arguments
@@ -179,7 +186,7 @@ public class idioma extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton anadir;
   private javax.swing.JPanel bg;
-  private javax.swing.JButton editar;
+  private javax.swing.JButton eliminar;
   private javax.swing.JList<String> lista;
   private javax.swing.JScrollPane scroll;
   private javax.swing.JLabel title;
