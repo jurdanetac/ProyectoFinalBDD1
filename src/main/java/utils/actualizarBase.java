@@ -3,6 +3,7 @@ package utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,7 +65,6 @@ public class actualizarBase {
       Logger.getLogger(actualizarBase.class.getName()).log(Level.INFO, query);
       stmt.executeUpdate(query);
     } catch (SQLException ex) {
-      Logger.getLogger(actualizarBase.class.getName()).log(Level.SEVERE, null, ex);
       JOptionPane.showMessageDialog(null, "Revise los dominios de los datos ingresados");
     }
   }
@@ -89,9 +89,10 @@ public class actualizarBase {
       Logger.getLogger(actualizarBase.class.getName()).log(Level.INFO, query);
       stmt.executeUpdate(query);
 
+    } catch (SQLIntegrityConstraintViolationException ex) {
+      JOptionPane.showMessageDialog(null, "No puede eliminar una entidad sin eliminar quienes la referencian primero");
     } catch (SQLException ex) {
-      Logger.getLogger(actualizarBase.class
-          .getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(actualizarBase.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       try {
         stmt.close();
