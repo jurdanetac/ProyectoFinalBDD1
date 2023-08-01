@@ -33,12 +33,15 @@ public class actualizarBase {
     } else if ("ser_vivo".equals(entidad)) {
       valores = "(nombre_comun,descripcion,estado_de_conservacion,reino,filo_o_division,clase,orden,familia,genero,especie)";
     } else if ("simbolo_patrio".equals(entidad)) {
+      valores = "(nombre,descripcion,territorio_id)";
+    } else if ("simbolo_patrio_con_id".equals(entidad)) {
+      entidad = "simbolo_patrio";
       valores = "(id,nombre,descripcion,territorio_id)";
     } else if ("territorio".equals(entidad)) {
       valores = "(tipo,nombre,ubicacion,superficie,nro_habitantes,clima,territorio_capital_id)";
     } else if ("territorio_con_id".equals(entidad)) {
-      valores = "(id, tipo,nombre,ubicacion,superficie,nro_habitantes,clima,territorio_capital_id)";
       entidad = "territorio";
+      valores = "(id, tipo,nombre,ubicacion,superficie,nro_habitantes,clima,territorio_capital_id)";
     } else if ("territorio_desarrolla_actividad_economica".equals(entidad)) {
       valores = "(actividad_economica_nombre,territorio_id)";
     } else if ("territorio_linda_con_territorio".equals(entidad)) {

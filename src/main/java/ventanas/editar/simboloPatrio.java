@@ -1,4 +1,4 @@
-package ventanas.anadir;
+package ventanas.editar;
 
 import java.awt.Font;
 import java.sql.ResultSet;
@@ -22,7 +22,11 @@ public class simboloPatrio extends javax.swing.JFrame {
    */
   public static Font font = null;
 
-  public simboloPatrio() {
+  String id;
+
+  public simboloPatrio(String nombreSimbolo) {
+    this.id = nombreSimbolo;
+
     font = utils.cargarFuente.robotoRegular();
     initComponents();
     // Center frame
@@ -42,6 +46,21 @@ public class simboloPatrio extends javax.swing.JFrame {
     } catch (SQLException ex) {
       Logger.getLogger(simboloPatrio.class.getName()).log(Level.SEVERE, null, ex);
     }
+
+    try {
+      territorios.close();
+    } catch (SQLException ex) {
+      Logger.getLogger(simboloPatrio.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    ResultSet simbolos = consultarBase(String.format("SELECT nombre FROM simbolo_patrio WHERE id = %s;", id));
+
+    try {
+      simbolos.next();
+      nombre.setText(simbolos.getString("nombre"));
+    } catch (SQLException ex) {
+      Logger.getLogger(simboloPatrio.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
 
   /**
@@ -55,7 +74,7 @@ public class simboloPatrio extends javax.swing.JFrame {
 
     jPanel1 = new javax.swing.JPanel();
     volver = new javax.swing.JButton();
-    anadir = new javax.swing.JButton();
+    modificar = new javax.swing.JButton();
     title = new javax.swing.JLabel();
     limpiar = new javax.swing.JButton();
     jLabel3 = new javax.swing.JLabel();
@@ -79,13 +98,13 @@ public class simboloPatrio extends javax.swing.JFrame {
     });
     getContentPane().add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
-    anadir.setText("Añadir");
-    anadir.addActionListener(new java.awt.event.ActionListener() {
+    modificar.setText("Modificar");
+    modificar.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        anadirActionPerformed(evt);
+        modificarActionPerformed(evt);
       }
     });
-    getContentPane().add(anadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, -1));
+    getContentPane().add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, -1));
 
     title.setFont(font);
     title.setText("Nuevo Símbolo Patrio");
@@ -122,11 +141,12 @@ public class simboloPatrio extends javax.swing.JFrame {
     simboloPatrio.setVisible(true);
   }//GEN-LAST:event_volverActionPerformed
 
-  private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
+  private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
     JTextField[] columnas = {nombre, descripcion};
-    String[] simboloPatrio = new String[columnas.length + 1];
+    String[] simboloPatrio = new String[columnas.length + 2];
+    simboloPatrio[0] = id;
 
-    int index = 0;
+    int index = 1;
 
     for (JTextField columna : columnas) {
       if (columna.getText().trim().isEmpty()) {
@@ -146,12 +166,13 @@ public class simboloPatrio extends javax.swing.JFrame {
     simboloPatrio[simboloPatrio.length - 1] = (String) menuTerritorio.getSelectedItem();
     simboloPatrio[simboloPatrio.length - 1] = simboloPatrio[simboloPatrio.length - 1].split(" ")[0];
 
-    utils.actualizarBase.insertar("simbolo_patrio", String.format("('%s', '%s', %s)", simboloPatrio));
+    utils.actualizarBase.eliminar("simbolo_patrio", "id", id);
+    utils.actualizarBase.insertar("simbolo_patrio_con_id", String.format("(%s, '%s', '%s', %s)", simboloPatrio));
 
     JFrame simbolosPatrios = new ventanas.entidades.simboloPatrio();
     this.setVisible(false);
     simbolosPatrios.setVisible(true);
-  }//GEN-LAST:event_anadirActionPerformed
+  }//GEN-LAST:event_modificarActionPerformed
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
     JFrame anadirRelieve = new ventanas.anadir.simboloPatrio();
@@ -232,17 +253,48 @@ public class simboloPatrio extends javax.swing.JFrame {
     //</editor-fold>
     //</editor-fold>
     //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
+    //</editor-fold>
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new simboloPatrio().setVisible(true);
+        // new simboloPatrio().setVisible(true);
       }
     });
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton anadir;
   private javax.swing.JTextField descripcion;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
@@ -250,6 +302,7 @@ public class simboloPatrio extends javax.swing.JFrame {
   private javax.swing.JPanel jPanel1;
   private javax.swing.JButton limpiar;
   private javax.swing.JComboBox<String> menuTerritorio;
+  private javax.swing.JButton modificar;
   private javax.swing.JTextField nombre;
   private javax.swing.JLabel title;
   private javax.swing.JButton volver;
