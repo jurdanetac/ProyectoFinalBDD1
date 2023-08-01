@@ -142,9 +142,9 @@ public class actividadEconomica extends javax.swing.JFrame {
   }//GEN-LAST:event_anadirActionPerformed
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-    JFrame anadirIdioma = new ventanas.anadir.actividadEconomica();
+    JFrame anadirActividad = new ventanas.anadir.actividadEconomica();
     this.setVisible(false);
-    anadirIdioma.setVisible(true);
+    anadirActividad.setVisible(true);
   }//GEN-LAST:event_limpiarActionPerformed
 
   private void gentilicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gentilicioActionPerformed
