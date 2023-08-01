@@ -3,8 +3,8 @@ package ventanas.entidades;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import utils.populateLista;
-
 
 /**
  *
@@ -41,6 +41,7 @@ public class territorio extends javax.swing.JFrame {
     lista = new javax.swing.JList<>();
     volver = new javax.swing.JButton();
     editar = new javax.swing.JButton();
+    eliminar = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +58,7 @@ public class territorio extends javax.swing.JFrame {
         anadirActionPerformed(evt);
       }
     });
-    bg.add(anadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 90, -1));
+    bg.add(anadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 90, -1));
 
     lista.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -74,7 +75,7 @@ public class territorio extends javax.swing.JFrame {
         volverActionPerformed(evt);
       }
     });
-    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 90, -1));
+    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 90, -1));
 
     editar.setText("Editar");
     editar.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +83,15 @@ public class territorio extends javax.swing.JFrame {
         editarActionPerformed(evt);
       }
     });
-    bg.add(editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 90, -1));
+    bg.add(editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 90, -1));
+
+    eliminar.setText("Eliminar");
+    eliminar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        eliminarActionPerformed(evt);
+      }
+    });
+    bg.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, -1, -1));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -118,6 +127,19 @@ public class territorio extends javax.swing.JFrame {
     this.setVisible(false);
     editarTerritorio.setVisible(true);
   }//GEN-LAST:event_editarActionPerformed
+
+  private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+    if (lista.getSelectedValue() != null) {
+      String territorio_seleccionado = lista.getSelectedValue().split(" ")[0];
+      utils.actualizarBase.eliminarTerritorio(territorio_seleccionado);
+      this.setVisible(false);
+      JFrame entidadesTerritorio = new ventanas.entidades.territorio();
+      entidadesTerritorio.setVisible(true);
+      JOptionPane.showMessageDialog(null, "El territorio fue eliminado exitosamente");
+    } else {
+      JOptionPane.showMessageDialog(null, "No ha seleccionado un territorio");
+    }
+  }//GEN-LAST:event_eliminarActionPerformed
 
   /**
    * @param args the command line arguments
@@ -159,6 +181,7 @@ public class territorio extends javax.swing.JFrame {
   private javax.swing.JButton anadir;
   private javax.swing.JPanel bg;
   private javax.swing.JButton editar;
+  private javax.swing.JButton eliminar;
   private javax.swing.JList<String> lista;
   private javax.swing.JScrollPane scroll;
   private javax.swing.JLabel title;
