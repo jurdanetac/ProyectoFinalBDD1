@@ -117,7 +117,7 @@ public class populateLista {
         String nombre = rs.getString("nombre");
         String tipoRecurso = rs.getString("tipo_recurso");
 
-        modeloLista.addElement(String.format("%s (Recurso %s)", nombre, tipoRecurso));
+        modeloLista.addElement(String.format("%s - Recurso %s", nombre, tipoRecurso));
       }
       lista.setModel(modeloLista);
     } catch (SQLException ex) {
