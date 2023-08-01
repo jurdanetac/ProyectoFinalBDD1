@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import utils.ComboItem;
 import static utils.consultarBase.consultarBase;
 import utils.populateLista;
 
@@ -22,30 +23,6 @@ public class territorio extends javax.swing.JFrame {
    * Creates new form territorio
    */
   public static Font font = null;
-
-  class ComboItem {
-
-    private final String key;
-    private final String value;
-
-    public ComboItem(String key, String value) {
-      this.key = key;
-      this.value = value;
-    }
-
-    @Override
-    public String toString() {
-      return key;
-    }
-
-    public String getKey() {
-      return key;
-    }
-
-    public String getValue() {
-      return value;
-    }
-  }
 
   public territorio() {
     font = utils.cargarFuente.robotoRegular();
