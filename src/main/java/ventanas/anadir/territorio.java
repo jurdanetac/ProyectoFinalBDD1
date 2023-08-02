@@ -50,7 +50,7 @@ public class territorio extends javax.swing.JFrame {
       while (territorios.next()) {
         // there are no 'country' capitals, remove unnecessary entries from list
         if (territorios.getString("tipo").toLowerCase().equals("pais") || territorios.getString("tipo").toLowerCase().equals("país")) {
-          return;
+          continue;
         }
         capital.addItem(territorios.getString("id") + " - " + new ComboItem(territorios.getString("nombre"), territorios.getString("tipo")));
       }
@@ -338,11 +338,11 @@ public class territorio extends javax.swing.JFrame {
       index++;
     }
 
-    String territorio = String.format("('%s', '%s', '%s', %s, %s, '%s', %s)", (Object[]) camposDeTextoContenido);
-
     if (capital.getSelectedIndex() != 0) {
-      territorio = territorio.substring(0, territorio.lastIndexOf(",")) + String.format(", %s)", camposDeTextoContenido[camposDeTextoContenido.length - 1]);
+      camposDeTextoContenido[camposDeTextoContenido.length - 1] = String.valueOf(capital.getSelectedItem()).split("-")[0];
     }
+
+    String territorio = String.format("('%s', '%s', '%s', %s, %s, '%s', %s)", (Object[]) camposDeTextoContenido);
 
     utils.actualizarBase.insertar("territorio", territorio);
 
