@@ -448,11 +448,10 @@ public class territorio extends javax.swing.JFrame {
           utils.actualizarBase.insertar("territorio_linda_con_territorio", String.format("(%s, %s)", vecino.toString(), territorio_creado_id));
         }
       }
-
-      JFrame entidadesTerritorio = new ventanas.entidades.territorio();
-      this.setVisible(false);
-      entidadesTerritorio.setVisible(true);
     }
+    JFrame entidadesTerritorio = new ventanas.entidades.territorio();
+    this.setVisible(false);
+    entidadesTerritorio.setVisible(true);
   }//GEN-LAST:event_anadirActionPerformed
 
   private void climaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_climaActionPerformed

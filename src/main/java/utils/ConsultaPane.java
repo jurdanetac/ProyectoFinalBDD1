@@ -51,23 +51,6 @@ public class ConsultaPane {
                 rs.getString("extension"),
                 rs.getString("profundidad")),
             "Cuerpo de Agua", JOptionPane.INFORMATION_MESSAGE);
-      } else if (entidad.equals("idioma")) {
-        rs = stmt.executeQuery(String.format("SELECT nombre, porcentaje, oficial FROM idioma WHERE nombre = '%s';", id));
-
-        rs.first();
-        String oficial;
-        if (rs.getString("oficial").equals("1")) {
-          oficial = "Es un idioma oficial";
-        } else {
-          oficial = "No es un idioma oficial";
-        }
-
-        JOptionPane.showMessageDialog(null,
-            String.format("Nombre:\n%s\n\nPorcentaje de hablantes:\n%s\n\n%s",
-                rs.getString("nombre"),
-                rs.getString("porcentaje"),
-                oficial,
-                "Idioma"));
       } else if (entidad.equals("relieve")) {
         rs = stmt.executeQuery(String.format("SELECT tipo, descripcion FROM relieve WHERE tipo = '%s';", id));
 
@@ -109,6 +92,37 @@ public class ConsultaPane {
                 rs.getString("estado_de_conservacion"),
                 rs.getString("descripcion")),
             "Ser Vivo", JOptionPane.INFORMATION_MESSAGE);
+      } else if (entidad.equals("territorio")) {
+        rs = stmt.executeQuery(String.format("SELECT t1.id, t1.tipo, t1.nombre, t1.ubicacion, t1.superficie, t1.nro_habitantes, t1.clima, c.nombre FROM territorio t1 JOIN territorio c ON t1.territorio_capital_id = c.id WHERE t1.id = %s;", id));
+
+        if (rs.next()) {
+          JOptionPane.showMessageDialog(null,
+              String.format("ID:\n%s\n\nTipo:\n%s\n\nNombre:\n%s\n\nUbicación:\n%s\n\nSuperficie:\n%s\n\nNúmero de Habitantes:\n%s\n\nClima:\n%s\n\nCapital:\n%s",
+                  rs.getString("t1.id"),
+                  rs.getString("t1.tipo"),
+                  rs.getString("t1.nombre"),
+                  rs.getString("t1.ubicacion"),
+                  rs.getString("t1.superficie"),
+                  rs.getString("t1.nro_habitantes"),
+                  rs.getString("t1.clima"),
+                  rs.getString("c.nombre")),
+              "Territorio", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+          rs = stmt.executeQuery(String.format("SELECT id, tipo, nombre, ubicacion, superficie, nro_habitantes, clima FROM territorio WHERE id = %s;", id));
+
+          rs.first();
+
+          JOptionPane.showMessageDialog(null,
+              String.format("ID:\n%s\n\nTipo:\n%s\n\nNombre:\n%s\n\nUbicación:\n%s\n\nSuperficie:\n%s\n\nNúmero de Habitantes:\n%s\n\nClima:\n%s\n\nCapital:\nSin asignar.",
+                  rs.getString("id"),
+                  rs.getString("tipo"),
+                  rs.getString("nombre"),
+                  rs.getString("ubicacion"),
+                  rs.getString("superficie"),
+                  rs.getString("nro_habitantes"),
+                  rs.getString("clima"),
+                  "Territorio", JOptionPane.INFORMATION_MESSAGE));
+        }
       }
     } catch (SQLException ex) {
       Logger.getLogger(ConsultaPane.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,5 +134,9 @@ public class ConsultaPane {
         Logger.getLogger(ConsultaPane.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
+  }
+
+  public static void main(String[] args) {
+    consultaPane("territorio", "3", "");
   }
 }

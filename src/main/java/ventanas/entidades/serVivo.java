@@ -40,6 +40,7 @@ public class serVivo extends javax.swing.JFrame {
     volver = new javax.swing.JButton();
     editar = new javax.swing.JButton();
     eliminar = new javax.swing.JButton();
+    verDatos = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,6 +92,14 @@ public class serVivo extends javax.swing.JFrame {
     });
     bg.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
 
+    verDatos.setText("Ver");
+    verDatos.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        verDatosActionPerformed(evt);
+      }
+    });
+    bg.add(verDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 50, -1));
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -138,6 +147,13 @@ public class serVivo extends javax.swing.JFrame {
     seresVivos.setVisible(true);
   }//GEN-LAST:event_eliminarActionPerformed
 
+  private void verDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verDatosActionPerformed
+    String[] seleccion = lista.getSelectedValue().split("-");
+    String[] nombreCientifico = seleccion[1].split(" ");
+
+    utils.ConsultaPane.consultaPane("ser_vivo", nombreCientifico[1].trim(), nombreCientifico[2].trim());
+  }//GEN-LAST:event_verDatosActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -184,6 +200,7 @@ public class serVivo extends javax.swing.JFrame {
   private javax.swing.JList<String> lista;
   private javax.swing.JScrollPane scroll;
   private javax.swing.JLabel title;
+  private javax.swing.JButton verDatos;
   private javax.swing.JButton volver;
   // End of variables declaration//GEN-END:variables
 }

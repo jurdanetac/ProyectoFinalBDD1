@@ -53,6 +53,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
     lista = new javax.swing.JList<>();
     volver = new javax.swing.JButton();
     colinda = new javax.swing.JButton();
+    verDatos = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,7 +70,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
         subterritoriosActionPerformed(evt);
       }
     });
-    bg.add(subterritorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 100, -1));
+    bg.add(subterritorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 100, -1));
 
     lista.setModel(new javax.swing.AbstractListModel<String>() {
       String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -86,7 +87,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
         volverActionPerformed(evt);
       }
     });
-    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 90, -1));
+    bg.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 90, -1));
 
     colinda.setText("Vecinos");
     colinda.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +95,15 @@ public class explorarTerritorio extends javax.swing.JFrame {
         colindaActionPerformed(evt);
       }
     });
-    bg.add(colinda, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 90, -1));
+    bg.add(colinda, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, 90, -1));
+
+    verDatos.setText("Ver");
+    verDatos.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        verDatosActionPerformed(evt);
+      }
+    });
+    bg.add(verDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, -1, -1));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -183,6 +192,10 @@ public class explorarTerritorio extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_colindaActionPerformed
 
+  private void verDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verDatosActionPerformed
+    utils.ConsultaPane.consultaPane("territorio", lista.getSelectedValue().split("-")[0], "");
+  }//GEN-LAST:event_verDatosActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -228,6 +241,7 @@ public class explorarTerritorio extends javax.swing.JFrame {
   private javax.swing.JScrollPane scroll;
   private javax.swing.JButton subterritorios;
   private javax.swing.JLabel title;
+  private javax.swing.JButton verDatos;
   private javax.swing.JButton volver;
   // End of variables declaration//GEN-END:variables
 }
